@@ -1,0 +1,1665 @@
+Group {
+ name MagicDefocus1
+ tile_color 0xce8150ff
+ addUserKnob {20 controls l Controls}
+ addUserKnob {41 gpu l "Use GPU if available" T MagicDefocus_knobs.gpu}
+ addUserKnob {41 method t "This setting will determine the way of defocusing. When using 2d. Only a convolve will be used. This uses only a little bit of computational power. Useful for preview of the settings, or for defocusing a background.\n\nWhen using depth, the depth channel of the image will be used for defocusing. This uses more computational power. " T MagicDefocus_knobs_py.method}
+ addUserKnob {41 render t "Choose the mode to render.\n\n<b>Result</b>: result of the MagicDefocus\n<b>Preview grid</b>: Shows a pattern of dots acros the image. Useful when trying different settings in the non-uniform processing.\n<b>Focal plane setup</b>: Shows the way the image will be defocused using depth. This option is not working for the 2d method.\n<b>Slices preview</b>: Overlays a grid with the way the non-uniform bokehs will be processed. The more slices, the longer the render will be, but it will give better results.\n" T MagicDefocus_knobs_py.render}
+ addUserKnob {41 math +DISABLED T MagicDefocus_knobs.math}
+ addUserKnob {26 ""}
+ addUserKnob {41 center l "focus plane (C)" +DISABLED T MagicDefocus_knobs.center}
+ addUserKnob {41 dof l "depth of field" t "Make a range of this depth be entirely in focus. True theoretical depth-of-field would set this to zero." +DISABLED T MagicDefocus_knobs.dof}
+ addUserKnob {41 focal_point l "focal point" +DISABLED T MagicDefocus_knobs.focal_point}
+ addUserKnob {41 size t "This option will set the size of the bokeh. For depth processing it also sets the max size. \n\nThe size will match in both 2d and depth methods." T MagicDefocus_knobs.size}
+ addUserKnob {26 ""}
+ addUserKnob {41 breathing l "enable breathing" t "Enable lens breathing, it will automatically zoom in and out according to the focus plane.\n\nIt will change according to the aspect ratio in the setting of the <b>bokeh tab</b>. When using a low value like .5, it will create anamorphic breathing, when using 1 it will create normal breathing.\n\n<b>Note</b>: Ease in- and out on the focus plane setting animation for smoother breathing." +DISABLED T MagicDefocus_knobs_py.breathing}
+ addUserKnob {41 breathing_amount l amount t "This slider controls the amount of lens breathing. A higher value will give more breathing." +DISABLED T MagicDefocus_knobs.breathing_amount}
+ addUserKnob {41 breathing_invert l invert t "Invert the breathing zooming. Most depth passes use higher values for further pixels. The Scanline render is the opposite. Use this checkbox when using the scanline render for example." -STARTLINE +DISABLED T MagicDefocus_knobs.breathing_invert}
+ addUserKnob {26 ""}
+ addUserKnob {41 gamma_correction l "gamma correction" t "Use gamma correction to boost the bright bokehs in the image." T MagicDefocus_knobs_py.gamma_correction}
+ addUserKnob {41 gamma_correction_amount l amount t "Use this slider to control the amount of gamma correction. More gamma correction results in brighter bokehs." +DISABLED T MagicDefocus_knobs.gamma_correction_amount}
+ addUserKnob {26 ""}
+ addUserKnob {41 preserve_bounding_box l "preserve bounding box" t "This option will preserve the bounding box. When using <b>non-uniform bokeh</b> the bounding box will be controlled by the amount of overscan. " T MagicDefocus_knobs.preserve_bounding_box}
+ addUserKnob {20 Bokeh_tab l Bokeh}
+ addUserKnob {41 preview_filter l "preview filter" t "Use this option to get a preview of the bokeh with te current settings. Useful when changing sliders," T bokeh_knobs.preview_filter}
+ addUserKnob {41 filter_type l "filter type" t "Choose between 3 modes of filter.\n\n<b>Disc</b>:  outputs a perfect circle bokeh.\n<b>Bladed</b>: outputs a bokeh with corners. Amount of corners and edge corners can be changed with corners and edge flattening.\n<b>Image</b>: uses the filter input as a filter. All the other filter settings will be ignored." T bokeh_knobs_py.filter_type}
+ addUserKnob {26 ""}
+ addUserKnob {41 ring_color l "ring color" t "Adjust the intensity and color of the ring." T bokeh_knobs.ring_color}
+ addUserKnob {41 ring_color_panelDropped l "panel dropped state" +INVISIBLE T bokeh_knobs.ring_color_panelDropped}
+ addUserKnob {41 inner_color l "inner color" t "Adjust the intensity and color of the inner side of the bokeh." T bokeh_knobs.inner_color}
+ addUserKnob {41 inner_color_panelDropped l "panel dropped state" +INVISIBLE T bokeh_knobs.inner_color_panelDropped}
+ addUserKnob {41 ring_size l "ring size" t "Change the thickness of the ring." T bokeh_knobs.ring_size}
+ addUserKnob {41 outer_blur l "outer blur" t "Use this slider to give the outer side of the bokeh softness." T bokeh_knobs.outer_blur}
+ addUserKnob {41 inner_blur l "inner blur" t "Use this slider to give the inner side of the bokeh softness." T bokeh_knobs.inner_blur}
+ addUserKnob {26 ""}
+ addUserKnob {41 chroma_spread l "chroma spread" t "Split the channels of the bokeh for a chromatic abberation effect. Useful for a more realistic bokeh. The higher the value is from 0, the more splitted the filter will be." T bokeh_knobs.chroma_spread}
+ addUserKnob {41 chroma_type l type t "Choose the type of chroma spread.\n<b>Blue-red</b>: This will offset the blue and red channels in opposite directions. Giving a blue-red spread.\n<b>Blue-yellow</b>: This will only offset the blue channel. Giving a blue-yellow spread.\n<b>Green-purple</b>: This will offset the blue and red channels together. Giving a green-purple spread." -STARTLINE T bokeh_knobs.chroma_type}
+ addUserKnob {41 corners t "When using bladed filter type. The amount of corners can be specified." +DISABLED T bokeh_knobs.corners}
+ addUserKnob {41 angle t "Use this slider to change the angle of the corners." +DISABLED T bokeh_knobs.angle}
+ addUserKnob {41 edge_flattening l "edge flattening" t "When using lower values, the corners will be more rounded. Vice versa when using high values, the corners will be more sharp." +DISABLED T bokeh_knobs.edge_flattening}
+ addUserKnob {26 ""}
+ addUserKnob {41 noise_size l "noise size" t "Higher values will make the noise larger. Lower values will make the noise smaller." T bokeh_knobs.noise_size}
+ addUserKnob {41 noise_intensity l "noise intensity" t "Use this slider to change the amount of noise. Higher values will make the noise more apparent, lower values less." T bokeh_knobs.noise_intensity}
+ addUserKnob {41 noise_blur l "noise blur" t "This slider will blur the noise. Higher values will average the blur, lower values will make the noise sharper." T bokeh_knobs.noise_blur}
+ addUserKnob {41 noise_seed l "noise seed" t "Randomize the noise with seed. The size does not matter. Each noise will output a different noise. " T bokeh_knobs.noise_seed}
+ addUserKnob {26 ""}
+ addUserKnob {41 quality_bokeh l quality t "Specify the quality of the filter. Higher values will increase the resolution of the filter. " T bokeh_knobs.quality_bokeh}
+ addUserKnob {41 aspect_ratio l "aspect ratio" t "Use this slider to specify the aspect ratio of the bokeh. This slider also changes the way the lens <b>breathing</b> works. Use a lower value (like .5) for anamorphic lenses. Values like 1 will be for spherical lenses." T bokeh_knobs.aspect_ratio}
+ addUserKnob {20 non_uniform_tab l Non-uniform}
+ addUserKnob {41 enable_non_uniform l "enable non-uniform bokeh" t "Enable non-uniform bokeh processing. It can create catseye and barndoor bokehs.\n\nIt will process the bokeh different on each part of the image.\n\n<b>Note</b>: this option is heavy on computational power. Pre-rendering is recommended when using this option." T non_uniform_knobs_py.enable_non_uniform}
+ addUserKnob {26 ""}
+ addUserKnob {41 catseye l "enable catseye" t "Catseye will crop the bokeh depending on the location. It does occur when the sensor size is larger than the lens opening." +DISABLED T non_uniform_knobs_py.catseye}
+ addUserKnob {41 catseye_amount l amount t "Amount of cropping in the bokeh. Higher values will make the effect more apparent, but also requires a higher quality setting." +DISABLED T non_uniform_knobs.catseye_amount}
+ addUserKnob {26 ""}
+ addUserKnob {41 barndoors l "enable barn doors" t "Barndoors will crop the filter depending on the location. It is an effect that is visible when the lens has barndoors to block light." +DISABLED T non_uniform_knobs_py.barndoors}
+ addUserKnob {41 barndoors_width l width t "Specify the amount of cropping horizontally." +DISABLED T non_uniform_knobs.barndoors_width}
+ addUserKnob {41 barndoors_height l height t "Specify the amount of cropping vertically." +DISABLED T non_uniform_knobs.barndoors_height}
+ addUserKnob {26 ""}
+ addUserKnob {41 quality_nonuniform l quality t "Set the quality of the non-uniform processing.\n\nTechnical explanation: the image will be cut into slices. For each slice the bokeh will be calculated and defocused. More slices mean a better result, but also more computational power is required. Look through the <b>slices preview</b> in the render option on the controls tab for a preview of the slices.\n\n<b>Low</b>: 5 slices, which means 5x5=25 slices.\n<b>High</b>: 10 slices, which means 10x10=100 slices.\n<b>Highest</b>: 20 slices, which means 20x20 = 400 slices." +DISABLED T non_uniform_knobs.quality_nonuniform}
+ addUserKnob {41 farm l "render highest quality on farm" t "Render using the highest quality when on a renderfarm. This doesn't affect the quality option when rendering locally." -STARTLINE +DISABLED T non_uniform_knobs.farm}
+ addUserKnob {41 softness t "Specify the amount to blend between the slices. Higher values will blend the slices so any transitions when a bokeh crosses two slices will be less visible." +DISABLED T non_uniform_knobs.softness}
+ addUserKnob {41 overscan l "overscan %" t "Increase this slider when there are <b>render artifacts</b> in the viewer. \n\nOr when a <b>preservation of the bounding box</b> is desirable." +DISABLED T non_uniform_knobs.overscan}
+ addUserKnob {26 ""}
+ addUserKnob {41 preserveedge l "preserve edge" t "Re-enables the edge of the created bokeh in the bokeh tab. " +DISABLED T non_uniform_knobs_py.preserveedge}
+ addUserKnob {41 preserve_edge_amount l amount t "Specify the amount of preservation." +DISABLED T non_uniform_knobs.preserve_edge_amount}
+ addUserKnob {20 about l About}
+ addUserKnob {26 credits l MagicDefocus T "v0.10.1 | <a href=\"https://vinkvfx.com/\" style=\"color: rgb(200,200,200)\">Gilles Vink</a>"}
+}
+ Input {
+  inputs 0
+  name filter
+  xpos -4012
+  ypos -2334
+  number 1
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove2
+  xpos -4012
+  ypos -2159
+ }
+ NoTimeBlur {
+  rounding none
+  name NoTimeBlur3
+  label "Remove incoming\nsubframes"
+  xpos -4012
+  ypos -1871
+ }
+ Keyer {
+  operation "luminance key"
+  name Keyer2
+  label "Generating alpha\nfrom image"
+  xpos -4012
+  ypos -1474
+ }
+ Reformat {
+  format "512 512 0 0 512 512 1 square_512"
+  name Reformat1
+  label "Generalizes resolution\nof custom image bokeh"
+  xpos -4012
+  ypos -1378
+ }
+ Dot {
+  name Dot16
+  xpos -3978
+  ypos -1106
+ }
+ Reformat {
+  inputs 0
+  format "512 512 0 0 512 512 1 square_512"
+  name bokeh_resolution
+  xpos -2935
+  ypos -4292
+ }
+ Dot {
+  name Dot18
+  xpos -2901
+  ypos -4166
+ }
+set N7e97790 [stack 0]
+ Dot {
+  name Dot8
+  xpos -2901
+  ypos -3989
+ }
+set N808e5b0 [stack 0]
+ Dot {
+  name Dot34
+  xpos -2901
+  ypos -3826
+ }
+set N7e870d0 [stack 0]
+ Flare {
+  position {{width/2} {height/2}}
+  radius {{radius.1} 173 {radius.1+7}}
+  size_mult {{bokeh_resolution1.bokeh_res/sqrt(bokeh_resolution1.bokeh_res)}}
+  inner_color 1
+  outer_falloff 10
+  corners {{bokeh_knobs.corners}}
+  flattening {{"\[if \{\[value bokeh_knobs_py.filter_type] == \"disc\" \} \{return 0\} else \{return bokeh_knobs.edge_flattening\}]"}}
+  sharpness 0.9999
+  corners_angle {{bokeh_knobs.angle}}
+  name Flare1
+  label "Shape generation"
+  xpos -2935
+  ypos -3727
+ }
+ Shuffle {
+  alpha red
+  name Shuffle4
+  label "Generate alpha"
+  xpos -2935
+  ypos -3689
+ }
+ Dot {
+  name Dot52
+  xpos -2901
+  ypos -3557
+ }
+set N7a78820 [stack 0]
+ Dot {
+  name Dot72
+  xpos -3198
+  ypos -3557
+ }
+ Dot {
+  name Dot73
+  xpos -3198
+  ypos -1773
+ }
+push $N7a78820
+ Dot {
+  name Dot51
+  xpos -2697
+  ypos -3557
+ }
+ Transform {
+  scale {{1-(bokeh_knobs.ring_size*.05)}}
+  center {{width/2} {height/2}}
+  name Transform2
+  xpos -2731
+  ypos -3473
+ }
+ Blur {
+  channels rgba
+  size {{(bokeh_knobs.inner_blur*200)*bokeh_resolution1.bokeh_res/sqrt(bokeh_resolution1.bokeh_res)}}
+  name Blur5
+  xpos -2731
+  ypos -3383
+ }
+ Dot {
+  name Dot50
+  xpos -2697
+  ypos -3134
+ }
+set N804f6a0 [stack 0]
+push $N7a78820
+ Transform {
+  scale {{1+(bokeh_knobs.ring_size*.05)}}
+  center {{width/2} {height/2}}
+  name Transform8
+  xpos -2935
+  ypos -3476
+ }
+ Blur {
+  channels rgba
+  size {{(bokeh_knobs.outer_blur*50)*bokeh_resolution1.bokeh_res/sqrt(bokeh_resolution1.bokeh_res)}}
+  name Blur4
+  xpos -2935
+  ypos -3375
+ }
+ Dot {
+  name Dot63
+  xpos -2901
+  ypos -3218
+ }
+set N85e8470 [stack 0]
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge7
+  xpos -2935
+  ypos -3138
+ }
+ Dot {
+  name Dot99
+  xpos -2902
+  ypos -3093
+ }
+set N7d7ade0 [stack 0]
+ Dot {
+  name Dot100
+  xpos -3058
+  ypos -3093
+ }
+ Dot {
+  name Dot101
+  xpos -3058
+  ypos -1836
+ }
+push $N804f6a0
+ Dot {
+  name Dot53
+  xpos -2475
+  ypos -3134
+ }
+push $N7e870d0
+ Dot {
+  name Dot62
+  xpos -2298
+  ypos -3826
+ }
+ Dot {
+  name Dot35
+  xpos -2154
+  ypos -3826
+ }
+ Noise {
+  size {{(bokeh_knobs.noise_size*40)*bokeh_resolution1.bokeh_res/sqrt(bokeh_resolution1.bokeh_res)}}
+  zoffset {{bokeh_knobs.noise_seed*100}}
+  gain 0.795
+  translate {{width/2} {height/2}}
+  center {1024 778}
+  name Noise1
+  xpos -2188
+  ypos -3246
+ }
+ Blur {
+  size {{(bokeh_knobs.noise_blur*15)*bokeh_resolution1.bokeh_res/sqrt(bokeh_resolution1.bokeh_res)}}
+  name Blur2
+  xpos -2188
+  ypos -3030
+ }
+ Dot {
+  name Dot32
+  xpos -2154
+  ypos -2719
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge6
+  xpos -2509
+  ypos -2723
+ }
+ Dot {
+  name Dot68
+  xpos -2475
+  ypos -2682
+ }
+set N81bae70 [stack 0]
+ Dot {
+  name Dot36
+  xpos -2475
+  ypos -2460
+ }
+push $N81bae70
+ Dot {
+  name Dot69
+  xpos -2634
+  ypos -2682
+ }
+ Invert {
+  name Invert1
+  xpos -2668
+  ypos -2618
+ }
+ Dot {
+  name Dot70
+  xpos -2634
+  ypos -2535
+ }
+push $N804f6a0
+push $N85e8470
+ Dot {
+  name Dot61
+  xpos -2791
+  ypos -3218
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge9
+  xpos -2825
+  ypos -2906
+ }
+ Dot {
+  name Dot67
+  xpos -2791
+  ypos -2810
+ }
+push $N804f6a0
+ Expression {
+  expr0 bokeh_knobs.inner_color.0
+  expr1 bokeh_knobs.inner_color.1
+  expr2 bokeh_knobs.inner_color.2
+  name Expression1
+  label "color inner_color"
+  xpos -2731
+  ypos -2915
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge12
+  xpos -2731
+  ypos -2814
+ }
+ Dot {
+  name Dot54
+  xpos -2697
+  ypos -2745
+ }
+push $N7d7ade0
+ Dot {
+  name Dot65
+  xpos -2901
+  ypos -2944
+ }
+set N855deb0 [stack 0]
+ Dot {
+  name Dot64
+  xpos -2997
+  ypos -2944
+ }
+ Dot {
+  name Dot66
+  xpos -2997
+  ypos -2809
+ }
+push $N855deb0
+ Expression {
+  expr0 bokeh_knobs.ring_color.0
+  expr1 bokeh_knobs.ring_color.1
+  expr2 bokeh_knobs.ring_color.2
+  name Expression2
+  label "color ring_color"
+  xpos -2935
+  ypos -2914
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge13
+  xpos -2935
+  ypos -2813
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge8
+  xpos -2935
+  ypos -2749
+ }
+ Grade {
+  inputs 1+1
+  channels rgba
+  white {{1-(bokeh_knobs.noise_intensity/2)}}
+  white_clamp true
+  name Grade4
+  label "Noise intensity"
+  xpos -2935
+  ypos -2545
+ }
+ Grade {
+  inputs 1+1
+  channels rgba
+  white {{1+bokeh_knobs.noise_intensity}}
+  white_clamp true
+  name Grade3
+  label "Noise intensity"
+  xpos -2935
+  ypos -2470
+ }
+ Dot {
+  name Dot49
+  xpos -2901
+  ypos -2370
+ }
+set N85463c0 [stack 0]
+ Dot {
+  name Dot57
+  xpos -2747
+  ypos -2369
+ }
+set N854b2c0 [stack 0]
+ Dot {
+  name Dot56
+  xpos -2573
+  ypos -2369
+ }
+ Transform {
+  scale {{1+((bokeh_knobs.chroma_spread)*.2)}}
+  center {{width/2} {height/2}}
+  name Transform9
+  xpos -2607
+  ypos -2276
+ }
+ Dot {
+  name Dot55
+  xpos -2573
+  ypos -2085
+ }
+set N7d6bf30 [stack 0]
+ Dot {
+  name Dot60
+  xpos -2573
+  ypos -1915
+ }
+push $N7d6bf30
+push $N854b2c0
+ Transform {
+  scale {{1-((bokeh_knobs.chroma_spread)*.2)}}
+  center {{width/2} {height/2}}
+  name Transform10
+  xpos -2781
+  ypos -2296
+ }
+ Dot {
+  name Dot58
+  xpos -2747
+  ypos -2194
+ }
+push $N85463c0
+ Copy {
+  inputs 2
+  from0 rgba.blue
+  to0 {{{from0}}}
+  name Copy7
+  xpos -2935
+  ypos -2204
+  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : bokeh_knobs.chroma_type == 1 ? 0 : 1" x1 1}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 {{{from0}}}
+  name Copy2
+  xpos -2935
+  ypos -2095
+  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : 1" x1 1}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 {{{from0}}}
+  from1 rgba.blue
+  to1 {{{from1}}}
+  name Copy9
+  xpos -2935
+  ypos -1931
+  disable {{"bokeh_knobs.chroma_type == 2 ? 0 : 1"}}
+ }
+add_layer {bokeh_ring bokeh_ring.red}
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 bokeh_ring.red
+  name Copy13
+  xpos -2935
+  ypos -1846
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+add_layer {bokeh_alpha bokeh_alpha.red}
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 bokeh_alpha.red
+  name Copy8
+  xpos -2935
+  ypos -1783
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ NoTimeBlur {
+  rounding none
+  name NoTimeBlur2
+  label "Remove (possible) subframes"
+  xpos -2935
+  ypos -1303
+ }
+ Switch {
+  inputs 2
+  which {{"clamp(bokeh_knobs_py.filter_type-1, 0, 2)"}}
+  name Switch1
+  label "Filter type"
+  xpos -2935
+  ypos -1116
+ }
+ Reformat {
+  type "to box"
+  box_width {{"(int((bokeh_knobs.quality_bokeh*1000)/2))*2+10+(MagicDefocus_knobs_py.method ? 0 : 1)" x11 1160}}
+  black_outside true
+  name Reformat3
+  label Quality
+  xpos -2935
+  ypos -1021
+ }
+ Dot {
+  name Dot3
+  xpos -2901
+  ypos -899
+ }
+set N7f9e6a0 [stack 0]
+ Dot {
+  name Dot9
+  xpos -2623
+  ypos -899
+ }
+set N7fa3370 [stack 0]
+ Transform {
+  translate {{-offset} 0}
+  scale 1.3
+  center {{(input.width)/2} {(input.width/2)}}
+  name Transform4
+  label "This scales a mask\nfor the bokeh.\nAutomatically matches input size."
+  xpos -2657
+  ypos -823
+  disable {{curve}}
+  addUserKnob {20 calculations}
+  addUserKnob {3 offset}
+  offset {{((non_uniform_calculations.distance)*(non_uniform_knobs.catseye_amount*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)}}
+ }
+ Grade {
+  channels alpha
+  whitepoint 0.035
+  name Grade2
+  xpos -2657
+  ypos -680
+ }
+ Transform {
+  rotate {{non_uniform_calculations.angle}}
+  center {{input.width/2} {input.height/2}}
+  name Transform5
+  xpos -2657
+  ypos -556
+ }
+ Blur {
+  size 1
+  name Blur3
+  xpos -2657
+  ypos -530
+ }
+ Dot {
+  name Dot10
+  xpos -2623
+  ypos 194
+ }
+push $N7f9e6a0
+ Crop {
+  box {{(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_width*-1))} {(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_height*-1))} {width+(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_width)} {height+(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_height)}}
+  name Crop7
+  label "Barn doors"
+  xpos -2935
+  ypos -27
+  disable {{"bokeh_knobs.preview_filter ? 1 : non_uniform_knobs_py.enable_non_uniform == 1 ? non_uniform_knobs_py.barndoors == 1 ? MagicDefocus_knobs_py.render == 2 ? 1 : 0 : 1 : 1" x1 1}}
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  also_merge bokeh_alpha
+  name Merge1
+  label "Only enabled when using\nnon-deforming bokeh and catseye"
+  xpos -2935
+  ypos 178
+  disable {{"bokeh_knobs.preview_filter ? 1 : non_uniform_knobs_py.enable_non_uniform == 1 ? non_uniform_knobs_py.catseye == 1 ? MagicDefocus_knobs_py.render == 2 ? 1 : 0 : 1 : 1" x1 1}}
+ }
+ Dot {
+  name Dot75
+  xpos -2901
+  ypos 708
+ }
+set N8679f20 [stack 0]
+ Dot {
+  name Dot77
+  xpos -2617
+  ypos 708
+ }
+set N867ea30 [stack 0]
+ Dot {
+  name Dot94
+  xpos -2435
+  ypos 708
+ }
+set N8683680 [stack 0]
+ Dot {
+  name Dot97
+  xpos -2037
+  ypos 708
+ }
+ NoOp {
+  name bokeh_resolution3
+  label "Captures resolution factor of bokeh"
+  xpos -2071
+  ypos 1076
+  addUserKnob {20 User}
+  addUserKnob {3 bokeh_res}
+  bokeh_res {{((width*height))/262144}}
+ }
+push $N867ea30
+ Shuffle {
+  in bokeh_ring
+  in2 rgba
+  name Shuffle5
+  xpos -2651
+  ypos 940
+ }
+ Dot {
+  name Dot76
+  xpos -2617
+  ypos 1636
+ }
+push $N8683680
+ Shuffle {
+  in bokeh_alpha
+  in2 rgba
+  name Shuffle7
+  xpos -2469
+  ypos 941
+ }
+ Dot {
+  name Dot71
+  xpos -2435
+  ypos 1211
+ }
+set N8643190 [stack 0]
+ Dot {
+  name Dot95
+  xpos -2231
+  ypos 1211
+ }
+ Transform {
+  scale {{1-(bokeh_knobs.ring_size*.05)}}
+  center {{width/2} {height/2}}
+  name Transform13
+  xpos -2265
+  ypos 1270
+ }
+ Blur {
+  channels rgba
+  size {{(bokeh_knobs.inner_blur*200)*bokeh_resolution3.bokeh_res/sqrt(bokeh_resolution3.bokeh_res)}}
+  name Blur6
+  xpos -2265
+  ypos 1312
+ }
+ Dot {
+  name Dot74
+  xpos -2231
+  ypos 1561
+ }
+push $N8643190
+ Transform {
+  scale {{1+(bokeh_knobs.ring_size*.05)}}
+  center {{width/2} {height/2}}
+  name Transform14
+  xpos -2469
+  ypos 1272
+ }
+ Blur {
+  channels rgba
+  size {{(bokeh_knobs.outer_blur*50)*bokeh_resolution3.bokeh_res/sqrt(bokeh_resolution3.bokeh_res)}}
+  name Blur8
+  xpos -2469
+  ypos 1309
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge17
+  xpos -2469
+  ypos 1557
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge21
+  xpos -2469
+  ypos 1632
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove4
+  xpos -2469
+  ypos 1694
+ }
+ Dot {
+  name Dot85
+  xpos -2435
+  ypos 1847
+ }
+set N8766ff0 [stack 0]
+ Dot {
+  name Dot86
+  xpos -2531
+  ypos 1847
+ }
+ Dot {
+  name Dot87
+  xpos -2531
+  ypos 2007
+ }
+push $N8766ff0
+ Expression {
+  expr0 bokeh_knobs.ring_color.0
+  expr1 bokeh_knobs.ring_color.1
+  expr2 bokeh_knobs.ring_color.2
+  name Expression4
+  label "color ring_color"
+  xpos -2469
+  ypos 1902
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge18
+  xpos -2469
+  ypos 2003
+ }
+ Dot {
+  name Dot88
+  xpos -2435
+  ypos 2103
+ }
+set N8795940 [stack 0]
+ Dot {
+  name Dot89
+  xpos -2281
+  ypos 2104
+ }
+set N879a5e0 [stack 0]
+ Dot {
+  name Dot90
+  xpos -2107
+  ypos 2104
+ }
+ Transform {
+  scale {{1+((bokeh_knobs.chroma_spread)*.2)}}
+  center {{width/2} {height/2}}
+  name Transform11
+  xpos -2141
+  ypos 2197
+ }
+ Dot {
+  name Dot91
+  xpos -2107
+  ypos 2388
+ }
+set N87b23d0 [stack 0]
+ Dot {
+  name Dot92
+  xpos -2107
+  ypos 2558
+ }
+push $N87b23d0
+push $N879a5e0
+ Transform {
+  scale {{1-((bokeh_knobs.chroma_spread)*.2)}}
+  center {{width/2} {height/2}}
+  name Transform12
+  xpos -2315
+  ypos 2177
+ }
+ Dot {
+  name Dot93
+  xpos -2281
+  ypos 2279
+ }
+push $N8795940
+ Copy {
+  inputs 2
+  from0 rgba.blue
+  to0 {{{from0}}}
+  name Copy3
+  xpos -2469
+  ypos 2269
+  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : bokeh_knobs.chroma_type == 1 ? 0 : 1" x1 1}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 {{{from0}}}
+  name Copy4
+  xpos -2469
+  ypos 2378
+  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : 1" x1 1}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 {{{from0}}}
+  from1 rgba.blue
+  to1 {{{from1}}}
+  name Copy5
+  xpos -2469
+  ypos 2541
+  disable {{"bokeh_knobs.chroma_type == 2 ? 0 : 1"}}
+ }
+ Multiply {
+  value {{non_uniform_knobs.preserve_edge_amount}}
+  name Multiply1
+  xpos -2469
+  ypos 2683
+ }
+ Dot {
+  name Dot78
+  xpos -2435
+  ypos 3037
+ }
+push $N8679f20
+ Remove {
+  operation keep
+  channels rgba
+  name Remove5
+  xpos -2935
+  ypos 780
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge20
+  xpos -2935
+  ypos 3033
+  disable {{"non_uniform_knobs_py.enable_non_uniform ? non_uniform_knobs_py.preserveedge ? bokeh_knobs_py.filter_type== 2 ? 1 : 0 : 1 : 1 "}}
+ }
+ Crop {
+  box {0 0 {input.width} {input.height}}
+  name Crop3
+  label "Crops borders"
+  xpos -2935
+  ypos 3858
+ }
+ Transform {
+  scale {{"clamp(bokeh_knobs.aspect_ratio, 0.3, 1)"} {"1.3333333333-(clamp(bokeh_knobs.aspect_ratio, 1, 3)/3)"}}
+  center {{width/2} {height/2}}
+  name Transform1
+  label "Sets aspect ratio of bokeh"
+  xpos -2935
+  ypos 3935
+ }
+add_layer {nondeform_alpha nondeform_alpha.red nondeform_alpha.green nondeform_alpha.blue nondeform_alpha.alpha}
+ Shuffle {
+  red alpha
+  green black
+  blue black
+  alpha black
+  green2 red
+  out nondeform_alpha
+  name Shuffle6
+  label "Set alpha as nondeform_alpha\nfor bokeh processing\n"
+  xpos -2935
+  ypos 4046
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ Dot {
+  name Dot2
+  xpos -2901
+  ypos 4187
+ }
+set N884f6a0 [stack 0]
+ Dot {
+  name Dot19
+  xpos -2901
+  ypos 6670
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 561
+  ypos 3108
+  number 2
+ }
+ NoTimeBlur {
+  name NoTimeBlur4
+  label "Remove incoming\nsubframes"
+  xpos 561
+  ypos 3406
+ }
+ Dot {
+  name Dot7
+  xpos 595
+  ypos 4188
+ }
+set N88664a0 [stack 0]
+ Dot {
+  name Dot31
+  xpos 595
+  ypos 4558
+ }
+push $N884f6a0
+ Dot {
+  name Dot21
+  xpos -451
+  ypos 4187
+ }
+set N81e9d10 [stack 0]
+ Dot {
+  name Dot47
+  xpos -451
+  ypos 4231
+ }
+set N81eea70 [stack 0]
+ Dot {
+  name Dot48
+  xpos -296
+  ypos 4231
+ }
+ Shuffle {
+  red white
+  green white
+  blue white
+  alpha white
+  name Shuffle8
+  xpos -330
+  ypos 4302
+ }
+ Shuffle {
+  in nondeform_alpha
+  red white
+  green black
+  blue black
+  alpha black
+  out nondeform_alpha
+  name Shuffle9
+  xpos -330
+  ypos 4328
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ Crop {
+  box {0 0 1 1}
+  reformat true
+  name Crop2
+  xpos -330
+  ypos 4354
+ }
+ Transform {
+  translate {{bokeh_resolution2.width/2-.5} {bokeh_resolution2.height/2-.5}}
+  center {{width/2 x6 0} {height/2 x6 0}}
+  name Transform7
+  xpos -330
+  ypos 4380
+ }
+ Grade {
+  channels rgba
+  white 0.01
+  name Grade6
+  xpos -330
+  ypos 4406
+ }
+ Dot {
+  name Dot79
+  xpos -296
+  ypos 4487
+ }
+push $N81eea70
+ Transform {
+  scale {{(1/sqrt(bokeh_resolution2.bokeh_res))*((MagicDefocus_knobs.size(floor(frame)))/50)}}
+  center {{width/2} {height/2}}
+  name Transform6
+  label "Scale slider for convolve\nmethod. Matches ZDefocus size."
+  xpos -485
+  ypos 4285
+ }
+ Merge2 {
+  inputs 2
+  operation under
+  also_merge nondeform_alpha
+  name Merge4
+  label "Draws always a pixel for bokeh processing"
+  xpos -485
+  ypos 4477
+ }
+ Dot {
+  name Dot29
+  xpos -451
+  ypos 4558
+ }
+ Input {
+  inputs 0
+  name image
+  xpos -153
+  ypos -6295
+ }
+ Dot {
+  name Dot44
+  xpos -119
+  ypos -5499
+ }
+set N8271c90 [stack 0]
+ Remove {
+  operation keep
+  channels rgba
+  channels2 depth
+  name Remove7
+  label "Selects channels to do\nthe processing to"
+  xpos -153
+  ypos -5403
+ }
+ Dot {
+  name Dot1
+  xpos -119
+  ypos -5053
+ }
+set N827f540 [stack 0]
+ Dot {
+  name Dot12
+  xpos 130
+  ypos -5053
+ }
+ Remove {
+  name Remove6
+  xpos 96
+  ypos -5011
+ }
+ Expression {
+  channel0 rgba
+  expr0 "ceil(x/(ceil(width/scale))) == floor(x/(ceil(width/scale))) && ceil(y/(ceil(height/scale))) == floor(y/(ceil(height/scale))) ? ceil(x) == 0 || ceil(y) == 0|| ceil(x) == width || ceil(y) == height ? 0 : 100 : 0"
+  channel1 rgb
+  name pixelgrid
+  label "Generate pixelgrid\nfor preview"
+  xpos 96
+  ypos -4941
+  addUserKnob {20 User}
+  addUserKnob {7 scale R 3 10}
+  scale 10
+ }
+ Dot {
+  name Dot14
+  xpos 130
+  ypos -4831
+ }
+push $N827f540
+ Switch {
+  inputs 2
+  which {{"MagicDefocus_knobs_py.render == 1? 1 : 0"}}
+  name Switch2
+  label "Enable preview grid"
+  xpos -153
+  ypos -4841
+ }
+ Transform {
+  scale {{1+breathing*(MagicDefocus_knobs.breathing_amount/20)} {1+(((breathing*(MagicDefocus_knobs.breathing_amount/20))*clamp((bokeh_knobs.aspect_ratio*2)-1))+(((breathing*-1+1)/20)+.013227)*clamp(3-(bokeh_knobs.aspect_ratio*2)-1))}}
+  center {{width/2} {height/2}}
+  black_outside false
+  name Transform3
+  label "This transform controls the\nbreathing of the lens."
+  xpos -153
+  ypos -4563
+  disable {{"MagicDefocus_knobs_py.breathing  ? !MagicDefocus_knobs_py.method : 1"}}
+  addUserKnob {20 breathing_calculations l "breathing calculations"}
+  addUserKnob {3 min_value l "min value"}
+  min_value {{"\[python min((key.y\\ for\\ key\\ in\\ nuke.toNode('ZDefocus1')\\\['center'\\].animation(0).keys()))\\ if\\ nuke.expression('MagicDefocus_knobs_py.breathing')\\ ==\\ 1\\ else\\ 0]"}}
+  addUserKnob {3 max_value l "max value"}
+  max_value {{"\[python max((key.y\\ for\\ key\\ in\\ nuke.toNode('ZDefocus1')\\\['center'\\].animation(0).keys()))\\ if\\ nuke.expression('MagicDefocus_knobs_py.breathing')\\ ==\\ 1\\ else\\ 0]"}}
+  addUserKnob {7 breathing}
+  breathing {{"(MagicDefocus_knobs.breathing_invert ? (min_value+ZDefocus1.center) : (max_value-ZDefocus1.center))*MagicDefocus_knobs_py.breathing"}}
+ }
+ Grade {
+  gamma {{1-(MagicDefocus_knobs.gamma_correction_amount*.4)}}
+  name Grade1
+  label "Changes gamma to\nmake bokehs brighter\n(gamma correction)"
+  xpos -153
+  ypos -4237
+  disable {{!MagicDefocus_knobs_py.gamma_correction}}
+ }
+ Reformat {
+  type scale
+  scale {{1+(non_uniform_knobs.overscan/100)}}
+  resize none
+  name Reformat4
+  label Overscan
+  xpos -153
+  ypos -3913
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ Dot {
+  name Dot37
+  xpos -119
+  ypos -3824
+ }
+set N82de410 [stack 0]
+ Shuffle {
+  alpha white
+  black alpha
+  out2 nondeform_alpha
+  name Shuffle2
+  label "Seperate alpha for\npreservation when cropping"
+  xpos -153
+  ypos -3719
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ NoTimeBlur {
+  rounding none
+  name NoTimeBlur1
+  label "Remove incoming\nsubframes"
+  xpos -153
+  ypos -3630
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ Crop {
+  box {{((non_uniform_calculations.width_size*non_uniform_calculations.part)-floor(non_uniform_calculations.percentage/(100/non_uniform_calculations.slices))*(width))-(non_uniform_knobs.softness/2)} {floor(non_uniform_calculations.percentage/(100/non_uniform_calculations.slices))*((height/non_uniform_calculations.slices))-(floor(non_uniform_calculations.percentage/100)*height)-(non_uniform_knobs.softness/2)} {(box.x+non_uniform_calculations.width_size)+(non_uniform_knobs.softness)} {(box.y+(height/non_uniform_calculations.slices))+(non_uniform_knobs.softness)}}
+  softness {{non_uniform_knobs.softness}}
+  intersect true
+  name Crop1
+  label "Cuts the image in pieces\nEach piece will be processed\napart with a different bokeh"
+  xpos -153
+  ypos -3508
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ Dot {
+  name Dot41
+  xpos -119
+  ypos -3349
+ }
+set N8307910 [stack 0]
+ Dot {
+  name Dot43
+  xpos 63
+  ypos -3349
+ }
+ Unpremult {
+  channels depth
+  name Unpremult1
+  label "Remove softness for depth values"
+  xpos 29
+  ypos -3316
+ }
+ Dot {
+  name Dot46
+  xpos 63
+  ypos -3252
+ }
+push $N8307910
+ Copy {
+  inputs 2
+  from0 depth.Z
+  to0 depth.Z
+  name Copy6_depth
+  label "Prevents cropping\ndepth pass"
+  xpos -153
+  ypos -3274
+  disable {{"MagicDefocus_knobs_py.method ? MagicDefocus_knobs_py.render ? 1 : non_uniform_calculations.enable_processing ? 1 : 0 : 1"}}
+ }
+ Dot {
+  name Dot27
+  xpos -119
+  ypos 4001
+ }
+set N832cb00 [stack 0]
+ Dot {
+  name Dot28
+  xpos 50
+  ypos 4001
+ }
+ Convolve2 {
+  inputs 2+1
+  useGPUIfAvailable {{MagicDefocus_knobs.gpu}}
+  use_input_channels true
+  name Convolve1
+  label "This is where the 2d\nprocessing happens"
+  xpos 16
+  ypos 4536
+ }
+ Dot {
+  name Dot30
+  xpos 50
+  ypos 4673
+ }
+push $N88664a0
+push $N81e9d10
+push $N832cb00
+ ZDefocus2 {
+  inputs 2+1
+  useGPUIfAvailable {{MagicDefocus_knobs.gpu}}
+  dof {{MagicDefocus_knobs.dof 0}}
+  size {{MagicDefocus_knobs.size}}
+  max_size {{size}}
+  filter_type image
+  legacy_resize_mode false
+  show_legacy_resize_mode false
+  use_input_channels true
+  name ZDefocus1
+  label "This is where the depth processing\nhappens"
+  xpos -153
+  ypos 4166
+ }
+ Switch {
+  inputs 2
+  which {{"MagicDefocus_knobs_py.method ? MagicDefocus_knobs_py.render == 1 ? 1 : 0 : 1"}}
+  name Switch4
+  label "2d/depth switch"
+  xpos -153
+  ypos 4663
+ }
+ TimeBlur {
+  divisions {{non_uniform_calculations.slices**2}}
+  shutter 1.00001
+  shuttercustomoffset 0
+  name TimeBlur1
+  label "Average slices"
+  xpos -153
+  ypos 4727
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ Unpremult {
+  channels {rgba.red rgba.green rgba.blue nondeform_alpha.red}
+  name Unpremult2
+  xpos -153
+  ypos 4803
+  disable {{non_uniform_calculations.enable_processing x2 1}}
+ }
+ Shuffle {
+  in nondeform_alpha
+  in2 rgba
+  red red2
+  green green2
+  blue blue2
+  alpha red
+  black red
+  white green
+  green2 red
+  name Shuffle3
+  label "Reverts alpha back into channel"
+  xpos -153
+  ypos 4850
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ Remove {
+  channels nondeform_alpha
+  name Remove3
+  xpos -153
+  ypos 4929
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ Dot {
+  name Dot24
+  xpos -119
+  ypos 4990
+ }
+set N9733c60 [stack 0]
+ Dot {
+  name Dot25
+  xpos 125
+  ypos 4990
+ }
+ Remove {
+  name Remove1
+  xpos 91
+  ypos 5045
+ }
+ Grid {
+  number {{non_uniform_calculations.slices}}
+  size {{3*non_uniform_calculations.res_size/sqrt(non_uniform_calculations.res_size)}}
+  name Grid1
+  xpos 91
+  ypos 5168
+ }
+ Dot {
+  name Dot4
+  xpos 125
+  ypos 5349
+ }
+set N9755790 [stack 0]
+ Dot {
+  name Dot13
+  xpos 326
+  ypos 5349
+ }
+ Dilate {
+  size {{2*non_uniform_calculations.res_size/sqrt(non_uniform_calculations.res_size)}}
+  name Dilate2
+  xpos 292
+  ypos 5433
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  name Shuffle1
+  xpos 292
+  ypos 5471
+ }
+ Dot {
+  name Dot17
+  xpos 326
+  ypos 5555
+ }
+push $N9755790
+ Merge2 {
+  inputs 2
+  operation under
+  name Merge3
+  xpos 91
+  ypos 5551
+ }
+ Crop {
+  box {0 0 {width} {height}}
+  name Crop4
+  xpos 91
+  ypos 5693
+ }
+ Dot {
+  name Dot26
+  xpos 125
+  ypos 5734
+ }
+push $N9733c60
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -153
+  ypos 5730
+  disable {{"MagicDefocus_knobs_py.render == 3 ? 0 : 1"}}
+ }
+ Reformat {
+  type "to box"
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  box_width {{image.width}}
+  box_height {{image.height}}
+  resize none
+  pbb true
+  name Reformat6
+  label Overscan
+  xpos -153
+  ypos 5804
+  disable {{non_uniform_calculations.enable_processing}}
+ }
+ Crop {
+  box {0 0 {image.width} {image.height}}
+  name Crop5
+  xpos -153
+  ypos 5886
+  disable {{MagicDefocus_knobs.preserve_bounding_box}}
+ }
+ Grade {
+  gamma {{Grade1.gamma}}
+  reverse true
+  name Grade5
+  label "Reverts gamma correction"
+  xpos -153
+  ypos 5963
+  disable {{!MagicDefocus_knobs_py.gamma_correction}}
+ }
+push $N8271c90
+ Dot {
+  name Dot42
+  selected true
+  xpos 1830
+  ypos -5499
+ }
+ Reformat {
+  type "to box"
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  box_width {{image.width}}
+  box_height {{image.height}}
+  scale {{1-((non_uniform_knobs.overscan/100)/1.5)}}
+  resize none
+  pbb {{MagicDefocus_knobs.preserve_bounding_box}}
+  name Reformat5
+  label Overscan
+  xpos 1796
+  ypos 5985
+ }
+ Dot {
+  name Dot45
+  xpos 1830
+  ypos 6094
+ }
+ Copy {
+  inputs 2
+  channels {{{Remove7.channels}}}
+  name Copy10
+  label "Copy back\nunprocessed channels"
+  xpos -153
+  ypos 6066
+ }
+ Switch {
+  inputs 2
+  which {{bokeh_knobs.preview_filter}}
+  name Switch3
+  xpos -153
+  ypos 6666
+ }
+ Dot {
+  name Dot6
+  label Output
+  note_font_size 15.2
+  xpos -119
+  ypos 6780
+ }
+ Output {
+  name Output1
+  xpos -153
+  ypos 6954
+ }
+push $N808e5b0
+ Dot {
+  name Dot11
+  xpos -2666
+  ypos -3989
+ }
+ NoOp {
+  name bokeh_resolution1
+  label "Captures resolution factor of bokeh"
+  xpos -2700
+  ypos -3906
+  addUserKnob {20 User}
+  addUserKnob {3 bokeh_res}
+  bokeh_res {{((width*height))/262144}}
+ }
+push $N7e97790
+ Dot {
+  name Dot23
+  xpos -2679
+  ypos -4166
+ }
+set N98211c0 [stack 0]
+ Dot {
+  name Dot39
+  xpos -2564
+  ypos -4166
+ }
+ NoOp {
+  name bokeh_knobs_py
+  knobChanged "def knobChangedCallback():\n    node = nuke.thisGroup()\n    knob = nuke.thisKnob()  \n    knobValue = knob.value()\n    knobs = node.knobs()      \n    bokeh = \[\"ring_color\", \"inner_color\", \"ring_size\", \"outer_blur\", \"inner_blur\", \"chroma_spread\", \"noise_size\", \"noise_intensity\", \"noise_blur\", \"noise_seed\"]\n    bladed = \[\"corners\", \"angle\", \"edge_flattening\"]\n \n    if knob.name() == \"filter_type\":\n        if knobValue == \"disc\":\n            for knobName in bokeh:\n                knobs\[knobName].setEnabled(True)\n            for knobName in bladed:\n                knobs\[knobName].setEnabled(False)     \n                         \n        else:\n            knobValue = knobValue == \"bladed\"\n            bokeh.extend(bladed)\n            for knobName in bokeh:\n                knobs\[knobName].setEnabled(knobValue != False)  \n                        \n    else:\n        pass\nknobChangedCallback()"
+  xpos -2598
+  ypos -4085
+  addUserKnob {20 bokeh_knobs l "Bokeh creation"}
+  addUserKnob {68 filter_type l "filter type" M {disc bladed image ""}}
+ }
+ NoOp {
+  inputs 0
+  name NoOp1
+  xpos -613
+  ypos 3976
+  addUserKnob {20 User}
+  addUserKnob {22 test T "nuke.toNode(\"ZDefocus1\").knob(\"output\").setValue(\"focal-plane setup\")" +STARTLINE}
+ }
+push $N98211c0
+ NoOp {
+  name bokeh_knobs
+  xpos -2713
+  ypos -4088
+  addUserKnob {20 bokeh_knobs l "Bokeh creation"}
+  addUserKnob {6 preview_filter l "preview filter" +STARTLINE}
+  addUserKnob {18 ring_color l "ring color"}
+  ring_color 1
+  addUserKnob {6 ring_color_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {18 inner_color l "inner color"}
+  inner_color 0.3
+  addUserKnob {6 inner_color_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {7 ring_size l "ring size"}
+  ring_size 0.1
+  addUserKnob {7 outer_blur l "outer blur"}
+  outer_blur 0.1
+  addUserKnob {7 inner_blur l "inner blur"}
+  inner_blur 0.1
+  addUserKnob {7 chroma_spread l "chroma spread" R -0.25 0.25}
+  chroma_spread -0.1
+  addUserKnob {4 chroma_type l type -STARTLINE M {blue-red blue-yellow green-purple ""}}
+  addUserKnob {3 corners}
+  corners 7
+  addUserKnob {7 angle R -180 180}
+  addUserKnob {7 edge_flattening l "edge flattening"}
+  edge_flattening 0.9
+  addUserKnob {7 noise_size l "noise size"}
+  noise_size 0.1
+  addUserKnob {7 noise_intensity l "noise intensity"}
+  noise_intensity 0.7
+  addUserKnob {7 noise_blur l "noise blur"}
+  noise_blur 0.3
+  addUserKnob {3 noise_seed l "noise seed"}
+  addUserKnob {7 quality_bokeh l quality}
+  quality_bokeh 0.1
+  addUserKnob {7 aspect_ratio l "aspect ratio" R 0.5 3}
+  aspect_ratio 1
+ }
+push $N82de410
+ Dot {
+  name Dot5
+  xpos 219
+  ypos -3824
+ }
+set N98418c0 [stack 0]
+ Dot {
+  name Dot20
+  xpos 430
+  ypos -3824
+ }
+set N9846050 [stack 0]
+ NoOp {
+  name non_uniform_knobs
+  xpos 396
+  ypos -3711
+  addUserKnob {20 non_uniform l Non-uniform}
+  addUserKnob {7 catseye_amount l amount}
+  catseye_amount 0.5
+  addUserKnob {7 barndoors_width l width}
+  barndoors_width 0.8
+  addUserKnob {7 barndoors_height l height}
+  barndoors_height 0.5
+  addUserKnob {4 quality_nonuniform l quality M {low high highest "" "" ""}}
+  addUserKnob {6 farm l "render highest quality on farm" -STARTLINE}
+  farm true
+  addUserKnob {7 softness R 0 200}
+  softness 100
+  addUserKnob {7 overscan l "overscan %" R 0 100}
+  overscan 5
+  addUserKnob {7 preserve_edge_amount l amount}
+  preserve_edge_amount 0.5
+ }
+push $N9846050
+ Dot {
+  name Dot40
+  xpos 542
+  ypos -3824
+ }
+ NoOp {
+  name non_uniform_knobs_py
+  knobChanged "def knobChangedCallback():\n    node = nuke.thisGroup()\n    knob = nuke.thisKnob()\n    knobValue = knob.value()\n    knobs = node.knobs() \n    nonUniformKnobs = \[\"catseye\", \"barndoors\", \"softness\", \"overscan\", \"preserveedge\", \"quality_nonuniform\", \"farm\", \"softness\", \"overscan\"]      \n    controlKnobs = \{'catseye': \['catseye_amount'],\n                    'barndoors': \[\"barndoors_width\", \"barndoors_height\"],\n                    'preserveedge': \[\"preserve_edge_amount\"],\}\n                    \n    if knob.name() == \"enable_non_uniform\": #Non-uniform bokeh main knob   \n        if not knobValue: #Disable always when non-uniform disabled         \n            for key in controlKnobs.keys():\n                nonUniformKnobs.extend(controlKnobs\[key])            \n                             \n        else: #Keep disabled if disabled\n            for controlName in controlKnobs.keys():\n                if node.knob(controlName).getValue():\n                    value_list = controlKnobs\[controlName]\n                    for knobName in controlKnobs\[controlName]:\n                        knobs\[knobName].setEnabled(True)     \n                                                \n        for knobName in nonUniformKnobs: #Enable all specified switches\n            knobs\[knobName].setEnabled(knobValue != False)   \n                     \n    elif knob.name() in controlKnobs.keys(): #Switch for all controlKnobs\n        for knobName in controlKnobs\[knob.name()]:\n            knobs\[knobName].setEnabled(knobValue != False)                                \n    else:\n        pass                \nknobChangedCallback()"
+  xpos 508
+  ypos -3710
+  addUserKnob {20 non_uniform l Non-uniform}
+  addUserKnob {6 enable_non_uniform l "enable non-uniform bokeh" +STARTLINE}
+  addUserKnob {6 catseye l "enable catseye" +STARTLINE}
+  catseye true
+  addUserKnob {6 barndoors l "enable barn doors" +STARTLINE}
+  addUserKnob {6 preserveedge l "preserve edge" +STARTLINE}
+ }
+push $N7fa3370
+ Dot {
+  name Dot15
+  xpos -2456
+  ypos -899
+ }
+ NoOp {
+  name bokeh_resolution2
+  label "Captures resolution factor of bokeh"
+  xpos -2490
+  ypos -824
+  addUserKnob {20 User}
+  addUserKnob {3 bokeh_res}
+  bokeh_res {{((width*height)/10404)}}
+ }
+ NoOp {
+  inputs 0
+  name MagicDefocus_knobs_py
+  knobChanged "def knobChangedCallback():\n    node = nuke.thisGroup()\n    knob = nuke.thisKnob()\n    knobValue = knob.value()\n    knobs = node.knobs()\n    \n    if knob.name() == \"method\":    \n        depthKnobs = \[\"math\", \"center\", \"dof\", \"focal_point\", \"breathing\"]     \n        for knobName in depthKnobs:\n            knobs\[knobName].setEnabled(knobValue != \"2d\")\n    if knob.name() == \"render\":\n        if knobValue == \"focal plane setup\":\n            nuke.toNode(\"ZDefocus1\")\[\"output\"].setValue(\"focal-plane setup\")\n        else:\n            nuke.toNode(\"ZDefocus1\").knob(\"output\").setValue(\"result\")\n        nuke.toNode(\"bokeh_knobs\").knob(\"preview_filter\").setValue(False)\n                        \n    elif knob.name() == \"breathing\":\n        breathingKnobs = \[\"breathing_amount\", \"breathing_invert\"]\n        for knobName in breathingKnobs:\n            knobs\[knobName].setEnabled(knobValue != False)   \n        focusAnimated = knobs\['center'].isAnimated()      \n        if not focusAnimated and knobValue != False:\n            nuke.message(\"The focus plane is not animated. Make sure to animate this before using the breathing setting.\")     \n                \n    elif knob.name() == \"gamma_correction\":\n        knobs\[\"gamma_correction_amount\"].setEnabled(knobValue != False)  \n             \n    else:\n        pass   \nknobChangedCallback()"
+  xpos 70
+  ypos -6298
+  addUserKnob {20 MagicDefocus_knobs l MagicDefocus}
+  addUserKnob {4 method M {2d depth "" "" ""}}
+  addUserKnob {4 render M {result "preview grid" "focal plane setup" "slices overlay" "" "" "" "" "" "" ""}}
+  addUserKnob {6 breathing l "enable breathing" +STARTLINE}
+  addUserKnob {6 gamma_correction l "gamma correction" +STARTLINE}
+ }
+push $N98418c0
+ NoOp {
+  name non_uniform_calculations
+  label "Controls and calculations of parameters"
+  xpos 185
+  ypos -3724
+  addUserKnob {20 non_uniform l Non-uniform}
+  addUserKnob {3 slices}
+  slices {{"non_uniform_knobs.farm == 1 && \$gui == 0 ? 20 : non_uniform_knobs.quality_nonuniform == 0 ? 5 : non_uniform_knobs.quality_nonuniform == 1 ? 10 : 20"}}
+  addUserKnob {7 percentage t "1 to 100 percent" R 0 100}
+  percentage {{frame%1*100}}
+  addUserKnob {3 enable_processing}
+  enable_processing {{"non_uniform_knobs_py.enable_non_uniform ? non_uniform_knobs_py.catseye || non_uniform_knobs_py.barndoors ? MagicDefocus_knobs_py.render == 2 ? 1 : 0 : 1 : 1"}}
+  addUserKnob {3 width}
+  width {{width}}
+  addUserKnob {3 height -STARTLINE}
+  height {{height}}
+  addUserKnob {3 res_size l "resolution size" -STARTLINE}
+  res_size {{width*height/2073600}}
+  addUserKnob {3 centerx l "center x"}
+  centerx {{this.width/2}}
+  addUserKnob {3 centery l center.y -STARTLINE}
+  centery {{this.height/2}}
+  addUserKnob {3 width_max}
+  width_max {{(width-(width/slices))}}
+  addUserKnob {3 width_size -STARTLINE}
+  width_size {{width/slices}}
+  addUserKnob {3 part}
+  part {{floor(((slices*slices)/100)*percentage)}}
+  addUserKnob {26 ""}
+  addUserKnob {3 crcenterx l "crop center x"}
+  crcenterx {{(Crop1.box.x+Crop1.box.r)/2}}
+  addUserKnob {3 crcentery l "crop center y" -STARTLINE}
+  crcentery {{(Crop1.box.y+Crop1.box.t)/2}}
+  addUserKnob {3 over_center_width l "over center width" t "returns 0 or 1"}
+  over_center_width {{clamp(crcenterx-centerx)}}
+  addUserKnob {3 over_center_height l "over center height" t "returns 0 or 1" -STARTLINE}
+  over_center_height {{clamp(crcentery-centery)}}
+  addUserKnob {7 angle R 0 360}
+  angle {{"degrees(atan2(crcentery - centery, crcenterx - centerx))"}}
+  addUserKnob {3 distance l "distance to center"}
+  distance {{"(hypot((centery-crcentery), (centerx-crcenterx))/sqrt(res_size))/880"}}
+  addUserKnob {3 distance_width l "distance width"}
+  distance_width {{((centerx-crcenterx)/sqrt(res_size))/880}}
+  addUserKnob {3 distance_height l "distance height" -STARTLINE}
+  distance_height {{((centery-crcentery)/sqrt(res_size))/495}}
+  addUserKnob {26 ""}
+ }
+ NoOp {
+  inputs 0
+  name MagicDefocus_knobs
+  xpos 180
+  ypos -6298
+  addUserKnob {20 MagicDefocus_knobs l MagicDefocus}
+  addUserKnob {6 gpu l "Use GPU if available" +STARTLINE}
+  gpu true
+  addUserKnob {41 math T ZDefocus1.math}
+  addUserKnob {41 center l "focus plane (C)" T ZDefocus1.center}
+  addUserKnob {41 focal_point l "focal point" T ZDefocus1.focal_point}
+  addUserKnob {7 dof l "depth of field"}
+  addUserKnob {7 size R 0 100}
+  size 10
+  addUserKnob {7 breathing_amount l amount}
+  breathing_amount 0.5
+  addUserKnob {6 breathing_invert l invert -STARTLINE}
+  addUserKnob {7 gamma_correction_amount l amount}
+  gamma_correction_amount 0.5
+  addUserKnob {6 preserve_bounding_box l "preserve bounding box" +STARTLINE}
+ }
+end_group
