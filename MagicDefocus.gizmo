@@ -589,7 +589,7 @@ set N9fb52a0 [stack 0]
  }
 push $N9fb05d0
  Crop {
-  box {{(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*70))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_width*-1))} {(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_height*-1)) x1 0} {width+(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_width)} {height+(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_height)}}
+  box {{(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*70))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_width*-1))} {(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*70))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_height*-1)) x1 0} {width+(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*70))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_width)} {height+(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*70))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_height)}}
   name Crop7
   label "Barn doors"
   xpos -2935
