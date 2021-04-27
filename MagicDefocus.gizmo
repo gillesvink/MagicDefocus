@@ -1187,7 +1187,7 @@ push $Nab83a10
  Dot {
   name Dot22
   xpos -119
-  ypos -4484
+  ypos -4432
  }
 set N13e8d0e0 [stack 0]
  Grade {
@@ -1609,61 +1609,6 @@ set Nad9bb90 [stack 0]
   addUserKnob {7 preserve_edge_amount l amount}
   preserve_edge_amount 0.5
  }
- NoOp {
-  inputs 0
-  name MagicDefocus_knobs
-  xpos 178
-  ypos -6299
-  addUserKnob {20 MagicDefocus_knobs l MagicDefocus}
-  addUserKnob {6 gpu l "Use GPU if available" +STARTLINE}
-  gpu true
-  addUserKnob {41 math T ZDefocus1.math}
-  addUserKnob {41 center l "focus plane (C)" T ZDefocus1.center}
-  addUserKnob {41 focal_point l "focal point" T ZDefocus1.focal_point}
-  addUserKnob {41 focalPoint l "focal point" T pointValue.focalPoint}
-  addUserKnob {7 dof l "depth of field"}
-  addUserKnob {7 size R 0 100}
-  size 10
-  addUserKnob {7 breathing_amount l amount}
-  breathing_amount 0.5
-  addUserKnob {6 breathing_invert l invert -STARTLINE}
-  addUserKnob {7 gamma_correction_amount l amount}
-  gamma_correction_amount 0.5
-  addUserKnob {6 preserve_bounding_box l "preserve bounding box" +STARTLINE}
- }
- NoOp {
-  inputs 0
-  name MagicDefocus_knobs_py
-  knobChanged "def knobChangedCallback():\n    node = nuke.thisGroup()\n    knob = nuke.thisKnob()\n    knobValue = knob.value()\n    knobs = node.knobs()\n    \n    \n    if knob.name() == \"method\":    \n        depthKnobs = \[\"math\", \"center\", \"dof\", \"focal_point\",\"focalPoint\", \"breathing\"]     \n        for knobName in depthKnobs:\n            knobs\[knobName].setEnabled(knobValue != \"2d\")\n    if knob.name() == \"render\":\n        if knobValue == \"focal plane setup\":\n            nuke.toNode(\"ZDefocus1\")\[\"output\"].setValue(\"focal-plane setup\")\n        else:\n            nuke.toNode(\"ZDefocus1\").knob(\"output\").setValue(\"result\")\n        nuke.toNode(\"bokeh_knobs\").knob(\"preview_filter\").setValue(False)\n                        \n    elif knob.name() == \"breathing\":\n        breathingKnobs = \[\"breathing_amount\", \"breathing_invert\"]\n        for knobName in breathingKnobs:\n            knobs\[knobName].setEnabled(knobValue != False)   \n        focusAnimated = knobs\['center'].isAnimated()      \n        if not focusAnimated and knobValue != False:\n            nuke.message(\"The focus plane is not animated. Make sure to animate this before using the breathing setting.\")     \n                \n    elif knob.name() == \"gamma_correction\":\n        knobs\[\"gamma_correction_amount\"].setEnabled(knobValue != False)  \n             \n    else:\n        pass   \nknobChangedCallback()"
-  xpos 72
-  ypos -6302
-  addUserKnob {20 MagicDefocus_knobs l MagicDefocus}
-  addUserKnob {4 method M {2d depth "" "" ""}}
-  addUserKnob {4 render M {result "preview grid" "focal plane setup" "slices overlay" "" "" "" "" "" "" ""}}
-  addUserKnob {6 breathing l "enable breathing" +STARTLINE}
-  addUserKnob {6 gamma_correction l "gamma correction" +STARTLINE}
- }
-push $N13e8d0e0
- Dot {
-  name Dot33
-  xpos -15
-  ypos -4484
- }
- NoOp {
-  name pointValue
-  knobChanged "def knobChangedCallback():    \n    if nuke.thisKnob().name() == \"focalPoint\":    \n        nuke.toNode('ZDefocus1')\['center'].setValue(nuke.thisNode()\['depthValue'].value())            \n    else:\n        pass   \nknobChangedCallback()"
-  xpos -49
-  ypos -4403
-  addUserKnob {20 focalPointKnobs}
-  addUserKnob {12 focalPoint l "focal point"}
-  focalPoint {200 200}
-  addUserKnob {3 focalPointBBoxX}
-  focalPointBBoxX {{focalPoint.x}}
-  addUserKnob {3 focalPointBBoxY -STARTLINE}
-  focalPointBBoxY {{focalPoint.y}}
-  addUserKnob {7 depthValue}
-  depthValue {{"\[sample this z focalPointBBoxX focalPointBBoxY]"}}
- }
 push $Nad9bb90
  Dot {
   name Dot40
@@ -1681,5 +1626,60 @@ push $Nad9bb90
   catseye true
   addUserKnob {6 barndoors l "enable barn doors" +STARTLINE}
   addUserKnob {6 preserveedge l "preserve edge" +STARTLINE}
+ }
+push $N13e8d0e0
+ Dot {
+  name Dot33
+  xpos -15
+  ypos -4432
+ }
+ NoOp {
+  name pointValue
+  knobChanged "def knobChangedCallback():    \n    if nuke.thisKnob().name() == \"focalPoint\":    \n        nuke.toNode('ZDefocus1')\['center'].setValue(nuke.thisNode()\['depthValue'].value())            \n    else:\n        pass   \nknobChangedCallback()"
+  xpos -49
+  ypos -4344
+  addUserKnob {20 focalPointKnobs}
+  addUserKnob {12 focalPoint l "focal point"}
+  focalPoint {200 200}
+  addUserKnob {3 focalPointBBoxX}
+  focalPointBBoxX {{"clamp(focalPoint.x, input.bbox.x, input.bbox.r)"}}
+  addUserKnob {3 focalPointBBoxY -STARTLINE}
+  focalPointBBoxY {{"clamp(focalPoint.y, input.bbox.y, input.bbox.t)"}}
+  addUserKnob {7 depthValue}
+  depthValue {{"\[if \{\[value MagicDefocus_knobs_py.method] == \"depth\" \} \{return \[sample this z focalPointBBoxX focalPointBBoxY] \} else \{return 0\}] "}}
+ }
+ NoOp {
+  inputs 0
+  name MagicDefocus_knobs_py
+  knobChanged "def knobChangedCallback():\n    node = nuke.thisGroup()\n    knob = nuke.thisKnob()\n    knobValue = knob.value()\n    knobs = node.knobs()\n    \n    \n    if knob.name() == \"method\":    \n        depthKnobs = \[\"math\", \"center\", \"dof\", \"focal_point\",\"focalPoint\", \"breathing\"]     \n        for knobName in depthKnobs:\n            knobs\[knobName].setEnabled(knobValue != \"2d\")\n    if knob.name() == \"render\":\n        if knobValue == \"focal plane setup\":\n            nuke.toNode(\"ZDefocus1\")\[\"output\"].setValue(\"focal-plane setup\")\n        else:\n            nuke.toNode(\"ZDefocus1\").knob(\"output\").setValue(\"result\")\n        nuke.toNode(\"bokeh_knobs\").knob(\"preview_filter\").setValue(False)\n                        \n    elif knob.name() == \"breathing\":\n        breathingKnobs = \[\"breathing_amount\", \"breathing_invert\"]\n        for knobName in breathingKnobs:\n            knobs\[knobName].setEnabled(knobValue != False)   \n        focusAnimated = knobs\['center'].isAnimated()      \n        if not focusAnimated and knobValue != False:\n            nuke.message(\"The focus plane is not animated. Make sure to animate this before using the breathing setting.\")     \n                \n    elif knob.name() == \"gamma_correction\":\n        knobs\[\"gamma_correction_amount\"].setEnabled(knobValue != False)  \n             \n    else:\n        pass   \nknobChangedCallback()"
+  xpos 74
+  ypos -6294
+  addUserKnob {20 MagicDefocus_knobs l MagicDefocus}
+  addUserKnob {4 method M {2d depth "" "" ""}}
+  addUserKnob {4 render M {result "preview grid" "focal plane setup" "slices overlay" "" "" "" "" "" "" ""}}
+  addUserKnob {6 breathing l "enable breathing" +STARTLINE}
+  addUserKnob {6 gamma_correction l "gamma correction" +STARTLINE}
+ }
+ NoOp {
+  inputs 0
+  name MagicDefocus_knobs
+  xpos 181
+  ypos -6294
+  addUserKnob {20 MagicDefocus_knobs l MagicDefocus}
+  addUserKnob {6 gpu l "Use GPU if available" +STARTLINE}
+  gpu true
+  addUserKnob {41 math T ZDefocus1.math}
+  addUserKnob {41 center l "focus plane (C)" T ZDefocus1.center}
+  addUserKnob {41 focal_point l "focal point" T ZDefocus1.focal_point}
+  addUserKnob {41 focalPoint l "focal point" T pointValue.focalPoint}
+  addUserKnob {7 dof l "depth of field"}
+  addUserKnob {7 size R 0 100}
+  size 10
+  addUserKnob {7 breathing_amount l amount}
+  breathing_amount 0.5
+  addUserKnob {6 breathing_invert l invert -STARTLINE}
+  addUserKnob {7 gamma_correction_amount l amount}
+  gamma_correction_amount 0.5
+  addUserKnob {6 preserve_bounding_box l "preserve bounding box" +STARTLINE}
  }
 end_group
