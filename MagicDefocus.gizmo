@@ -1,5 +1,3 @@
-#! /home/gillesvink/Programs/Nuke12.1v5/libnuke-12.1.5.so -nx
-version 12.1 v5
 Gizmo {
  inputs 3
  tile_color 0xce8150ff
