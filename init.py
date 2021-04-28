@@ -1,0 +1,2 @@
+# MagicTools
+nuke.pluginAddPath('MagicTools')
