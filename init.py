@@ -1,2 +1,2 @@
 # MagicTools
-nuke.pluginAddPath('MagicTools')
+nuke.pluginAddPath('./MagicTools')
