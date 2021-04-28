@@ -1680,7 +1680,7 @@ push $Nc719680
   addUserKnob {3 focalPointBBoxY -STARTLINE}
   focalPointBBoxY {{"clamp(focalPoint.y, input.bbox.y, input.bbox.t)"}}
   addUserKnob {3 enableFocalPoint}
-  enableFocalPoint {{"MagicDefocus_knobs_py.method == 1 && MagicDefocus_knobs_py.render != 1 ? 1 : 0"}}
+  enableFocalPoint {{"\$gui ? non_uniform_knobs_py.enable_non_uniform ? MagicDefocus_knobs_py.method == 1 && MagicDefocus_knobs_py.render != 1 ? 1 : 0 : 0 : 0"}}
   addUserKnob {7 depthValue}
   depthValue {{"\[if \{\[value enableFocalPoint]\} \{return \[sample this z focalPointBBoxX focalPointBBoxY] \} else \{return 0\}] "}}
  }
