@@ -1,5 +1,3 @@
-#! /home/gillesvink/Programs/Nuke12.1v5/libnuke-12.1.5.so -nx
-version 12.1 v5
 Gizmo {
  inputs 3
  tile_color 0xce8150ff
@@ -1001,7 +999,7 @@ set N9f262a0 [stack 0]
   ypos 4354
  }
  Transform {
-  translate {{bokeh_resolution2.width/2-.5} {bokeh_resolution2.height/2-.5}}
+  translate {{bokeh_resolution2.width/2-.5} {ceil(bokeh_resolution2.height/2-.5)}}
   center {{width/2 x6 0} {height/2 x6 0}}
   name Transform7
   xpos -330
@@ -1080,10 +1078,9 @@ set N9fb6fb0 [stack 0]
   ypos -5011
  }
  Expression {
-  channel0 rgb
+  channel0 rgba
   expr0 "ceil(x/(ceil(width/scale))) == floor(x/(ceil(width/scale))) && ceil(y/(ceil(height/scale))) == floor(y/(ceil(height/scale))) ? ceil(x) == 0 || ceil(y) == 0|| ceil(x) == width || ceil(y) == height ? 0 : 100 : 0"
-  channel1 alpha
-  expr1 "ceil(x/(ceil(width/scale))) == floor(x/(ceil(width/scale))) && ceil(y/(ceil(height/scale))) == floor(y/(ceil(height/scale))) ? ceil(x) == 0 || ceil(y) == 0|| ceil(x) == width || ceil(y) == height ? 0 : 1: 0"
+  channel1 none
   name pixelgrid
   label "Generate pixelgrid\nfor preview"
   xpos 96
@@ -1530,6 +1527,43 @@ set Na1f0fc0 [stack 0]
   addUserKnob {7 aspect_ratio l "aspect ratio" R 0.5 3}
   aspect_ratio 1
  }
+push $Na1f0fc0
+ Dot {
+  name Dot39
+  xpos -2564
+  ypos -4166
+ }
+ NoOp {
+  name bokeh_knobs_py
+  knobChanged "def knobChangedCallback():\n    node = nuke.thisGroup()\n    knob = nuke.thisKnob()  \n    knobValue = knob.value()\n    knobs = node.knobs()      \n    bokeh = \[\"ring_color\", \"inner_color\", \"ring_size\", \"outer_blur\", \"inner_blur\", \"chroma_spread\", \"noise_size\", \"noise_intensity\", \"noise_blur\", \"noise_seed\"]\n    bladed = \[\"corners\", \"angle\", \"edge_flattening\"]\n \n    if knob.name() == \"filter_type\":\n        if knobValue == \"disc\":\n            for knobName in bokeh:\n                knobs\[knobName].setEnabled(True)\n            for knobName in bladed:\n                knobs\[knobName].setEnabled(False)     \n                         \n        else:\n            knobValue = knobValue == \"bladed\"\n            bokeh.extend(bladed)\n            for knobName in bokeh:\n                knobs\[knobName].setEnabled(knobValue != False)  \n                        \nknobChangedCallback()"
+  xpos -2598
+  ypos -4085
+  addUserKnob {20 bokeh_knobs l "Bokeh creation"}
+  addUserKnob {68 filter_type l "filter type" M {disc bladed image ""}}
+ }
+push $N9ff5fc0
+ Dot {
+  name Dot33
+  xpos -15
+  ypos -4432
+ }
+ NoOp {
+  name pointValue
+  knobChanged "def knobChangedCallback():    \n    if nuke.thisNode()\['enableFocalPoint'].value():\n        if nuke.thisKnob().name() == \"focalPoint\":    \n            nuke.toNode('ZDefocus1')\['center'].setValue(nuke.thisNode()\['depthValue'].value())       \nknobChangedCallback()"
+  xpos -49
+  ypos -4345
+  addUserKnob {20 focalPointKnobs}
+  addUserKnob {12 focalPoint l "focal point"}
+  focalPoint {200 200}
+  addUserKnob {3 focalPointBBoxX}
+  focalPointBBoxX {{"clamp(focalPoint.x, input.bbox.x, input.bbox.r)"}}
+  addUserKnob {3 focalPointBBoxY -STARTLINE}
+  focalPointBBoxY {{"clamp(focalPoint.y, input.bbox.y, input.bbox.t)"}}
+  addUserKnob {3 enableFocalPoint}
+  enableFocalPoint {{"\$gui ? non_uniform_knobs_py.enable_non_uniform ? MagicDefocus_knobs_py.method == 1 && MagicDefocus_knobs_py.render != 1 ? 1 : 0 : 0 : 0"}}
+  addUserKnob {7 depthValue}
+  depthValue {{"\[if \{\[value enableFocalPoint]\} \{return \[sample this z focalPointBBoxX focalPointBBoxY] \} else \{return 0\}] "}}
+ }
 push $Na01c130
  Dot {
   name Dot5
@@ -1630,46 +1664,22 @@ push $Na1cd9a0
   addUserKnob {6 barndoors l "enable barn doors" +STARTLINE}
   addUserKnob {6 preserveedge l "preserve edge" +STARTLINE}
  }
-push $Na1f0fc0
- Dot {
-  name Dot39
-  xpos -2564
-  ypos -4166
- }
  NoOp {
-  name bokeh_knobs_py
-  knobChanged "def knobChangedCallback():\n    node = nuke.thisGroup()\n    knob = nuke.thisKnob()  \n    knobValue = knob.value()\n    knobs = node.knobs()      \n    bokeh = \[\"ring_color\", \"inner_color\", \"ring_size\", \"outer_blur\", \"inner_blur\", \"chroma_spread\", \"noise_size\", \"noise_intensity\", \"noise_blur\", \"noise_seed\"]\n    bladed = \[\"corners\", \"angle\", \"edge_flattening\"]\n \n    if knob.name() == \"filter_type\":\n        if knobValue == \"disc\":\n            for knobName in bokeh:\n                knobs\[knobName].setEnabled(True)\n            for knobName in bladed:\n                knobs\[knobName].setEnabled(False)     \n                         \n        else:\n            knobValue = knobValue == \"bladed\"\n            bokeh.extend(bladed)\n            for knobName in bokeh:\n                knobs\[knobName].setEnabled(knobValue != False)  \n                        \nknobChangedCallback()"
-  xpos -2598
-  ypos -4085
-  addUserKnob {20 bokeh_knobs l "Bokeh creation"}
-  addUserKnob {68 filter_type l "filter type" M {disc bladed image ""}}
- }
-push $N9ff5fc0
- Dot {
-  name Dot33
-  xpos -15
-  ypos -4432
- }
- NoOp {
-  name pointValue
-  knobChanged "def knobChangedCallback():    \n    if nuke.thisNode()\['enableFocalPoint'].value():\n        if nuke.thisKnob().name() == \"focalPoint\":    \n            nuke.toNode('ZDefocus1')\['center'].setValue(nuke.thisNode()\['depthValue'].value())       \nknobChangedCallback()"
-  xpos -49
-  ypos -4345
-  addUserKnob {20 focalPointKnobs}
-  addUserKnob {12 focalPoint l "focal point"}
-  focalPoint {200 200}
-  addUserKnob {3 focalPointBBoxX}
-  focalPointBBoxX {{"clamp(focalPoint.x, input.bbox.x, input.bbox.r)"}}
-  addUserKnob {3 focalPointBBoxY -STARTLINE}
-  focalPointBBoxY {{"clamp(focalPoint.y, input.bbox.y, input.bbox.t)"}}
-  addUserKnob {3 enableFocalPoint}
-  enableFocalPoint {{"\$gui ? non_uniform_knobs_py.enable_non_uniform ? MagicDefocus_knobs_py.method == 1 && MagicDefocus_knobs_py.render != 1 ? 1 : 0 : 0 : 0"}}
-  addUserKnob {7 depthValue}
-  depthValue {{"\[if \{\[value enableFocalPoint]\} \{return \[sample this z focalPointBBoxX focalPointBBoxY] \} else \{return 0\}] "}}
+  inputs 0
+  name MagicDefocus_knobs_py
+  knobChanged "def knobChangedCallback():\n    node = nuke.thisGroup()\n    knob = nuke.thisKnob()\n    knobValue = knob.value()\n    knobs = node.knobs()\n    \n    \n    if knob.name() == \"method\":    \n        depthKnobs = \[\"math\", \"center\", \"dof\", \"focal_point\",\"focalPoint\", \"breathing\"]     \n        for knobName in depthKnobs:\n            knobs\[knobName].setEnabled(knobValue != \"2d\")\n    if knob.name() == \"render\":\n        if knobValue == \"focal plane setup\":\n            nuke.toNode(\"ZDefocus1\")\[\"output\"].setValue(\"focal-plane setup\")\n        else:\n            nuke.toNode(\"ZDefocus1\").knob(\"output\").setValue(\"result\")\n        nuke.toNode(\"bokeh_knobs\").knob(\"preview_filter\").setValue(False)\n                        \n    elif knob.name() == \"breathing\":\n        breathingKnobs = \[\"breathing_amount\", \"breathing_invert\"]\n        for knobName in breathingKnobs:\n            knobs\[knobName].setEnabled(knobValue != False)   \n        focusAnimated = knobs\['center'].isAnimated()      \n        if not focusAnimated and knobValue != False:\n            nuke.message(\"The focus plane is not animated. Make sure to animate this before using the breathing setting.\")     \n                \n    elif knob.name() == \"gamma_correction\":\n        knobs\[\"gamma_correction_amount\"].setEnabled(knobValue != False)  \n             \n    else:\n        pass   \nknobChangedCallback()"
+  xpos 74
+  ypos -6294
+  addUserKnob {20 MagicDefocus_knobs l MagicDefocus}
+  addUserKnob {4 method M {2d depth "" "" ""}}
+  addUserKnob {4 render M {result "preview grid" "focal plane setup" "slices overlay" "" "" "" "" "" "" ""}}
+  addUserKnob {6 breathing l "enable breathing" +STARTLINE}
+  addUserKnob {6 gamma_correction l "gamma correction" +STARTLINE}
  }
  NoOp {
   inputs 0
   name MagicDefocus_knobs
+  selected true
   xpos 181
   ypos -6294
   addUserKnob {20 MagicDefocus_knobs l MagicDefocus}
@@ -1688,18 +1698,5 @@ push $N9ff5fc0
   addUserKnob {7 gamma_correction_amount l amount}
   gamma_correction_amount 0.5
   addUserKnob {6 preserve_bounding_box l "preserve bounding box" +STARTLINE}
- }
- NoOp {
-  inputs 0
-  name MagicDefocus_knobs_py
-  knobChanged "def knobChangedCallback():\n    node = nuke.thisGroup()\n    knob = nuke.thisKnob()\n    knobValue = knob.value()\n    knobs = node.knobs()\n    \n    \n    if knob.name() == \"method\":    \n        depthKnobs = \[\"math\", \"center\", \"dof\", \"focal_point\",\"focalPoint\", \"breathing\"]     \n        for knobName in depthKnobs:\n            knobs\[knobName].setEnabled(knobValue != \"2d\")\n    if knob.name() == \"render\":\n        if knobValue == \"focal plane setup\":\n            nuke.toNode(\"ZDefocus1\")\[\"output\"].setValue(\"focal-plane setup\")\n        else:\n            nuke.toNode(\"ZDefocus1\").knob(\"output\").setValue(\"result\")\n        nuke.toNode(\"bokeh_knobs\").knob(\"preview_filter\").setValue(False)\n                        \n    elif knob.name() == \"breathing\":\n        breathingKnobs = \[\"breathing_amount\", \"breathing_invert\"]\n        for knobName in breathingKnobs:\n            knobs\[knobName].setEnabled(knobValue != False)   \n        focusAnimated = knobs\['center'].isAnimated()      \n        if not focusAnimated and knobValue != False:\n            nuke.message(\"The focus plane is not animated. Make sure to animate this before using the breathing setting.\")     \n                \n    elif knob.name() == \"gamma_correction\":\n        knobs\[\"gamma_correction_amount\"].setEnabled(knobValue != False)  \n             \n    else:\n        pass   \nknobChangedCallback()"
-  selected true
-  xpos 74
-  ypos -6294
-  addUserKnob {20 MagicDefocus_knobs l MagicDefocus}
-  addUserKnob {4 method M {2d depth "" "" ""}}
-  addUserKnob {4 render M {result "preview grid" "focal plane setup" "slices overlay" "" "" "" "" "" "" ""}}
-  addUserKnob {6 breathing l "enable breathing" +STARTLINE}
-  addUserKnob {6 gamma_correction l "gamma correction" +STARTLINE}
  }
 end_group
