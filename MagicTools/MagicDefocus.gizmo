@@ -999,7 +999,7 @@ set N9f262a0 [stack 0]
   ypos 4354
  }
  Transform {
-  translate {{bokeh_resolution2.width/2-.5} {ceil(bokeh_resolution2.height/2-.5)}}
+  translate {{ceil(bokeh_resolution2.width/2-.5)} {ceil(bokeh_resolution2.height/2-.5)}}
   center {{width/2 x6 0} {height/2 x6 0}}
   name Transform7
   xpos -330
