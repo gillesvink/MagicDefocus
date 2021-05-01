@@ -1679,7 +1679,6 @@ push $Na1cd9a0
  NoOp {
   inputs 0
   name MagicDefocus_knobs
-  selected true
   xpos 181
   ypos -6294
   addUserKnob {20 MagicDefocus_knobs l MagicDefocus}
