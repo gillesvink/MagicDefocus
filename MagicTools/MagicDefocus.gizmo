@@ -479,7 +479,7 @@ push $Nbd75da0
   name Copy7
   xpos -2935
   ypos -2204
-  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : bokeh_knobs.chroma_type == 1 ? 0 : 1" x1 1}}
+  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : bokeh_knobs.chroma_type == 1 ? 0 : 1"}}
  }
  Copy {
   inputs 2
@@ -488,7 +488,7 @@ push $Nbd75da0
   name Copy2
   xpos -2935
   ypos -2095
-  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : 1" x1 1}}
+  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : 1"}}
  }
  Copy {
   inputs 2
@@ -538,7 +538,7 @@ add_layer {bokeh_alpha bokeh_alpha.red}
  }
  Reformat {
   type "to box"
-  box_width {{"(int((bokeh_knobs.quality_bokeh*1000)/2))*2+100+(MagicDefocus_knobs_py.method ? 0 : 1)" x11 1160}}
+  box_width {{"(int((bokeh_knobs.quality_bokeh*1000)/2))*2+100+(MagicDefocus_knobs_py.method ? 0 : 1)"}}
   box_pixel_aspect {{image.pixel_aspect}}
   black_outside true
   name Reformat3
@@ -598,12 +598,12 @@ set Nbe1da50 [stack 0]
  }
 push $Nbe18d80
  Crop {
-  box {{(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_width*-1))} {(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_height*-1)) x1 0} {width+(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_width)} {height+(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_height)}}
+  box {{(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_width*-1))} {(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_height*-1))} {width+(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_width)} {height+(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_height)}}
   name Crop7
   label "Barn doors"
   xpos -2935
   ypos -27
-  disable {{"bokeh_knobs.preview_filter ? 1 : non_uniform_knobs_py.enable_non_uniform == 1 ? non_uniform_knobs_py.barndoors == 1 ? MagicDefocus_knobs_py.render == 2 ? 1 : 0 : 1 : 1" x1 1}}
+  disable {{"bokeh_knobs.preview_filter ? 1 : non_uniform_knobs_py.enable_non_uniform == 1 ? non_uniform_knobs_py.barndoors == 1 ? MagicDefocus_knobs_py.render == 2 ? 1 : 0 : 1 : 1"}}
  }
  Merge2 {
   inputs 2
@@ -613,7 +613,7 @@ push $Nbe18d80
   label "Only enabled when using\nnon-deforming bokeh and catseye"
   xpos -2935
   ypos 178
-  disable {{"bokeh_knobs.preview_filter ? 1 : non_uniform_knobs_py.enable_non_uniform == 1 ? non_uniform_knobs_py.catseye == 1 ? MagicDefocus_knobs_py.render == 2 ? 1 : 0 : 1 : 1" x1 1}}
+  disable {{"bokeh_knobs.preview_filter ? 1 : non_uniform_knobs_py.enable_non_uniform == 1 ? non_uniform_knobs_py.catseye == 1 ? MagicDefocus_knobs_py.render == 2 ? 1 : 0 : 1 : 1"}}
  }
  Dot {
   name Dot75
@@ -839,7 +839,7 @@ push $Nbf68710
   name Copy3
   xpos -2469
   ypos 2269
-  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : bokeh_knobs.chroma_type == 1 ? 0 : 1" x1 1}}
+  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : bokeh_knobs.chroma_type == 1 ? 0 : 1"}}
  }
  Copy {
   inputs 2
@@ -848,7 +848,7 @@ push $Nbf68710
   name Copy4
   xpos -2469
   ypos 2378
-  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : 1" x1 1}}
+  disable {{"bokeh_knobs.chroma_type == 0 ? 0 : 1"}}
  }
  Copy {
   inputs 2
@@ -999,7 +999,7 @@ set Nc0473c0 [stack 0]
  }
  Transform {
   translate {{ceil(bokeh_resolution2.width/2-.5)} {ceil(bokeh_resolution2.height/2-.5)}}
-  center {{width/2 x6 0} {height/2 x6 0}}
+  center {{width/2} {height/2}}
   name Transform7
   xpos -730
   ypos 4380
@@ -1117,7 +1117,7 @@ push $Nc0d80c0
   addUserKnob {3 max_value l "max value"}
   max_value {{"\[python max((key.y\\ for\\ key\\ in\\ nuke.toNode('ZDefocus1')\\\['center'\\].animation(0).keys()))\\ if\\ nuke.expression('MagicDefocus_knobs_py.breathing')\\ ==\\ 1\\ else\\ 0]"}}
   addUserKnob {7 breathing}
-  breathing {{"(MagicDefocus_knobs.breathing_invert ? (min_value+ZDefocus1.center) : (max_value-ZDefocus1.center))*MagicDefocus_knobs_py.breathing" x1 0}}
+  breathing {{"(MagicDefocus_knobs.breathing_invert ? (min_value+ZDefocus1.center) : (max_value-ZDefocus1.center))*MagicDefocus_knobs_py.breathing"}}
  }
  Dot {
   name Dot22
@@ -1297,7 +1297,7 @@ push $Nc18b0b0
   name Unpremult2
   xpos -153
   ypos 4803
-  disable {{non_uniform_calculations.enable_processing x2 1}}
+  disable {{non_uniform_calculations.enable_processing}}
  }
  Remove {
   channels nondeform_alpha
