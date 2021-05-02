@@ -127,19 +127,19 @@ Gizmo {
   xpos -2901
   ypos -4166
  }
-set N9aa7660 [stack 0]
+set Naf82e90 [stack 0]
  Dot {
   name Dot8
   xpos -2901
   ypos -3989
  }
-set N9aac3e0 [stack 0]
+set Naf87c10 [stack 0]
  Dot {
   name Dot34
   xpos -2901
   ypos -3826
  }
-set N9ab11a0 [stack 0]
+set Naf8c9d0 [stack 0]
  Flare {
   position {{width/2} {height/2}}
   radius {{radius.1} 173 {radius.1+7}}
@@ -167,7 +167,7 @@ set N9ab11a0 [stack 0]
   xpos -2901
   ypos -3557
  }
-set N9adebb0 [stack 0]
+set Nbbfef30 [stack 0]
  Dot {
   name Dot72
   xpos -3198
@@ -178,7 +178,7 @@ set N9adebb0 [stack 0]
   xpos -3198
   ypos -1773
  }
-push $N9adebb0
+push $Nbbfef30
  Dot {
   name Dot51
   xpos -2697
@@ -203,8 +203,8 @@ push $N9adebb0
   xpos -2697
   ypos -3134
  }
-set N9b0e640 [stack 0]
-push $N9adebb0
+set Nbc2e8b0 [stack 0]
+push $Nbbfef30
  Transform {
   scale {{1+(bokeh_knobs.ring_size*.05)}}
   center {{width/2} {height/2}}
@@ -224,7 +224,7 @@ push $N9adebb0
   xpos -2901
   ypos -3218
  }
-set N9b2f990 [stack 0]
+set Nbc4fc00 [stack 0]
  Merge2 {
   inputs 2
   operation stencil
@@ -237,7 +237,7 @@ set N9b2f990 [stack 0]
   xpos -2902
   ypos -3093
  }
-set N9b44b90 [stack 0]
+set Nbc64af0 [stack 0]
  Dot {
   name Dot100
   xpos -3058
@@ -248,13 +248,13 @@ set N9b44b90 [stack 0]
   xpos -3058
   ypos -1836
  }
-push $N9b0e640
+push $Nbc2e8b0
  Dot {
   name Dot53
   xpos -2475
   ypos -3134
  }
-push $N9ab11a0
+push $Naf8c9d0
  Dot {
   name Dot62
   xpos -2298
@@ -298,13 +298,13 @@ push $N9ab11a0
   xpos -2475
   ypos -2682
  }
-set N9b99540 [stack 0]
+set Nbcb9570 [stack 0]
  Dot {
   name Dot36
   xpos -2475
   ypos -2460
  }
-push $N9b99540
+push $Nbcb9570
  Dot {
   name Dot69
   xpos -2634
@@ -320,8 +320,8 @@ push $N9b99540
   xpos -2634
   ypos -2535
  }
-push $N9b0e640
-push $N9b2f990
+push $Nbc2e8b0
+push $Nbc4fc00
  Dot {
   name Dot61
   xpos -2791
@@ -339,7 +339,7 @@ push $N9b2f990
   xpos -2791
   ypos -2810
  }
-push $N9b0e640
+push $Nbc2e8b0
  Expression {
   expr0 bokeh_knobs.inner_color.0
   expr1 bokeh_knobs.inner_color.1
@@ -361,13 +361,13 @@ push $N9b0e640
   xpos -2697
   ypos -2745
  }
-push $N9b44b90
+push $Nbc64af0
  Dot {
   name Dot65
   xpos -2901
   ypos -2944
  }
-set N9bf5d60 [stack 0]
+set Nbd16ec0 [stack 0]
  Dot {
   name Dot64
   xpos -2997
@@ -378,7 +378,7 @@ set N9bf5d60 [stack 0]
   xpos -2997
   ypos -2809
  }
-push $N9bf5d60
+push $Nbd16ec0
  Expression {
   expr0 bokeh_knobs.ring_color.0
   expr1 bokeh_knobs.ring_color.1
@@ -427,13 +427,13 @@ push $N9bf5d60
   xpos -2901
   ypos -2370
  }
-set N9c54bf0 [stack 0]
+set Nbd75da0 [stack 0]
  Dot {
   name Dot57
   xpos -2747
   ypos -2369
  }
-set N9c5a7b0 [stack 0]
+set Nbd7b960 [stack 0]
  Dot {
   name Dot56
   xpos -2573
@@ -451,14 +451,14 @@ set N9c5a7b0 [stack 0]
   xpos -2573
   ypos -2085
  }
-set N9c72690 [stack 0]
+set Nbd93840 [stack 0]
  Dot {
   name Dot60
   xpos -2573
   ypos -1915
  }
-push $N9c72690
-push $N9c5a7b0
+push $Nbd93840
+push $Nbd7b960
  Transform {
   scale {{1-((bokeh_knobs.chroma_spread)*.2)}}
   center {{width/2} {height/2}}
@@ -471,7 +471,7 @@ push $N9c5a7b0
   xpos -2747
   ypos -2194
  }
-push $N9c54bf0
+push $Nbd75da0
  Copy {
   inputs 2
   from0 rgba.blue
@@ -551,13 +551,13 @@ add_layer {bokeh_alpha bokeh_alpha.red}
   xpos -2901
   ypos -899
  }
-set N9cf7bd0 [stack 0]
+set Nbe18d80 [stack 0]
  Dot {
   name Dot9
   xpos -2623
   ypos -899
  }
-set N9cfc8a0 [stack 0]
+set Nbe1da50 [stack 0]
  Transform {
   translate {{-offset} 0}
   scale 1.3
@@ -596,7 +596,7 @@ set N9cfc8a0 [stack 0]
   xpos -2623
   ypos 194
  }
-push $N9cf7bd0
+push $Nbe18d80
  Crop {
   box {{(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_width*-1))} {(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*(1+non_uniform_calculations.over_center_height*-1)) x1 0} {width+(((non_uniform_calculations.distance_width)*(non_uniform_knobs.barndoors_width*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_width)} {height+(((non_uniform_calculations.distance_height)*(non_uniform_knobs.barndoors_height*50))*bokeh_resolution2.bokeh_res/sqrt(bokeh_resolution2.bokeh_res)*non_uniform_calculations.over_center_height)}}
   name Crop7
@@ -620,19 +620,19 @@ push $N9cf7bd0
   xpos -2901
   ypos 708
  }
-set N9d5ebf0 [stack 0]
+set Nbe7f550 [stack 0]
  Dot {
   name Dot77
   xpos -2617
   ypos 708
  }
-set N9d63700 [stack 0]
+set Nbe84760 [stack 0]
  Dot {
   name Dot94
   xpos -2435
   ypos 708
  }
-set N9d68350 [stack 0]
+set Nbe894e0 [stack 0]
  Dot {
   name Dot97
   xpos -2037
@@ -647,7 +647,7 @@ set N9d68350 [stack 0]
   addUserKnob {3 bokeh_res}
   bokeh_res {{((width*height))/262144}}
  }
-push $N9cfc8a0
+push $Nbe1da50
  Dot {
   name Dot15
   xpos -2456
@@ -662,7 +662,7 @@ push $N9cfc8a0
   addUserKnob {3 bokeh_res}
   bokeh_res {{((width*height)/10404)}}
  }
-push $N9d63700
+push $Nbe84760
  Shuffle {
   in bokeh_ring
   in2 rgba
@@ -675,7 +675,7 @@ push $N9d63700
   xpos -2617
   ypos 1636
  }
-push $N9d68350
+push $Nbe894e0
  Shuffle {
   in bokeh_alpha
   in2 rgba
@@ -688,7 +688,7 @@ push $N9d68350
   xpos -2435
   ypos 1211
  }
-set N9da74e0 [stack 0]
+set Nbec8670 [stack 0]
  Dot {
   name Dot95
   xpos -2231
@@ -713,7 +713,7 @@ set N9da74e0 [stack 0]
   xpos -2231
   ypos 1561
  }
-push $N9da74e0
+push $Nbec8670
  Transform {
   scale {{1+(bokeh_knobs.ring_size*.05)}}
   center {{width/2} {height/2}}
@@ -754,7 +754,7 @@ push $N9da74e0
   xpos -2435
   ypos 1847
  }
-set N9e1a370 [stack 0]
+set Nbf3b4d0 [stack 0]
  Dot {
   name Dot86
   xpos -2531
@@ -765,7 +765,7 @@ set N9e1a370 [stack 0]
   xpos -2531
   ypos 2007
  }
-push $N9e1a370
+push $Nbf3b4d0
  Expression {
   expr0 bokeh_knobs.ring_color.0
   expr1 bokeh_knobs.ring_color.1
@@ -787,13 +787,13 @@ push $N9e1a370
   xpos -2435
   ypos 2103
  }
-set N9e477e0 [stack 0]
+set Nbf68710 [stack 0]
  Dot {
   name Dot89
   xpos -2281
   ypos 2104
  }
-set N9e4c480 [stack 0]
+set Nbf6d520 [stack 0]
  Dot {
   name Dot90
   xpos -2107
@@ -811,14 +811,14 @@ set N9e4c480 [stack 0]
   xpos -2107
   ypos 2388
  }
-set N9e64270 [stack 0]
+set Nbf853b0 [stack 0]
  Dot {
   name Dot92
   xpos -2107
   ypos 2558
  }
-push $N9e64270
-push $N9e4c480
+push $Nbf853b0
+push $Nbf6d520
  Transform {
   scale {{1-((bokeh_knobs.chroma_spread)*.2)}}
   center {{width/2} {height/2}}
@@ -831,7 +831,7 @@ push $N9e4c480
   xpos -2281
   ypos 2279
  }
-push $N9e477e0
+push $Nbf68710
  Copy {
   inputs 2
   from0 rgba.blue
@@ -872,7 +872,7 @@ push $N9e477e0
   xpos -2435
   ypos 3037
  }
-push $N9d5ebf0
+push $Nbe7f550
  Remove {
   operation keep
   channels rgba
@@ -905,10 +905,9 @@ push $N9d5ebf0
  }
 add_layer {nondeform_alpha nondeform_alpha.red nondeform_alpha.green nondeform_alpha.blue nondeform_alpha.alpha}
  Shuffle {
-  red alpha
+  red black
   green black
   blue black
-  alpha black
   green2 red
   out nondeform_alpha
   name Shuffle6
@@ -922,7 +921,7 @@ add_layer {nondeform_alpha nondeform_alpha.red nondeform_alpha.green nondeform_a
   xpos -2901
   ypos 4187
  }
-set N9f00910 [stack 0]
+set Nc021a30 [stack 0]
  Dot {
   name Dot19
   xpos -2901
@@ -946,25 +945,25 @@ set N9f00910 [stack 0]
   xpos 595
   ypos 4188
  }
-set N9f17710 [stack 0]
+set Nc038830 [stack 0]
  Dot {
   name Dot31
   xpos 595
   ypos 4558
  }
-push $N9f00910
+push $Nc021a30
  Dot {
   name Dot21
   xpos -451
   ypos 4187
  }
-set N9f21540 [stack 0]
+set Nc042660 [stack 0]
  Dot {
   name Dot47
   xpos -451
   ypos 4231
  }
-set N9f262a0 [stack 0]
+set Nc0473c0 [stack 0]
  Dot {
   name Dot48
   xpos -296
@@ -981,10 +980,10 @@ set N9f262a0 [stack 0]
  }
  Shuffle {
   in nondeform_alpha
-  red white
+  red black
   green black
   blue black
-  alpha black
+  alpha white
   out nondeform_alpha
   name Shuffle9
   xpos -330
@@ -1017,7 +1016,7 @@ set N9f262a0 [stack 0]
   xpos -296
   ypos 4487
  }
-push $N9f262a0
+push $Nc0473c0
  Transform {
   scale {{(1/sqrt(bokeh_resolution2.bokeh_res))*((MagicDefocus_knobs.size(floor(frame)))/50)}}
   center {{width/2} {height/2}}
@@ -1051,7 +1050,7 @@ push $N9f262a0
   xpos -119
   ypos -5499
  }
-set N9fa9700 [stack 0]
+set Nc0ca770 [stack 0]
  Remove {
   operation keep
   channels rgba
@@ -1066,7 +1065,7 @@ set N9fa9700 [stack 0]
   xpos -119
   ypos -5053
  }
-set N9fb6fb0 [stack 0]
+set Nc0d80c0 [stack 0]
  Dot {
   name Dot12
   xpos 130
@@ -1094,7 +1093,7 @@ set N9fb6fb0 [stack 0]
   xpos 130
   ypos -4831
  }
-push $N9fb6fb0
+push $Nc0d80c0
  Switch {
   inputs 2
   which {{"MagicDefocus_knobs_py.render == 1? 1 : 0"}}
@@ -1125,7 +1124,7 @@ push $N9fb6fb0
   xpos -119
   ypos -4432
  }
-set N9ff5fc0 [stack 0]
+set Nc116fa0 [stack 0]
  Grade {
   gamma {{1-(MagicDefocus_knobs.gamma_correction_amount*.4)}}
   name Grade1
@@ -1149,15 +1148,15 @@ set N9ff5fc0 [stack 0]
   xpos -119
   ypos -3824
  }
-set Na01c130 [stack 0]
+set Nc13c950 [stack 0]
  Shuffle {
-  alpha white
-  black alpha
+  black black
+  green2 white
   out2 nondeform_alpha
   name Shuffle2
-  label "Seperate alpha for\npreservation when cropping"
+  label "Set alpha to 1 on\nseperate channel for cropping"
   xpos -153
-  ypos -3719
+  ypos -3720
   disable {{non_uniform_calculations.enable_processing}}
  }
  NoTimeBlur {
@@ -1170,7 +1169,7 @@ set Na01c130 [stack 0]
  }
  Crop {
   box {{((non_uniform_calculations.width_size*non_uniform_calculations.part)-floor(non_uniform_calculations.percentage/(100/non_uniform_calculations.slices))*(width))-((softness/2)/image.pixel_aspect)} {floor(non_uniform_calculations.percentage/(100/non_uniform_calculations.slices))*((height/non_uniform_calculations.slices))-(floor(non_uniform_calculations.percentage/100)*height)-(softness/2)} {(box.x+non_uniform_calculations.width_size)+(softness/image.pixel_aspect)} {(box.y+(height/non_uniform_calculations.slices))+(softness)}}
-  softness {{(non_uniform_knobs.softness)*non_uniform_calculations.res_size/sqrt(non_uniform_calculations.res_size)}}
+  softness {{ceil((non_uniform_knobs.softness)*non_uniform_calculations.res_size/sqrt(non_uniform_calculations.res_size))}}
   intersect true
   name Crop1
   label "Cuts the image in pieces\nEach piece will be processed\napart with a different bokeh"
@@ -1183,7 +1182,7 @@ set Na01c130 [stack 0]
   xpos -119
   ypos -3349
  }
-set Na045690 [stack 0]
+set Nc165e80 [stack 0]
  Dot {
   name Dot43
   xpos 63
@@ -1191,6 +1190,7 @@ set Na045690 [stack 0]
  }
  Unpremult {
   channels depth
+  alpha nondeform_alpha.alpha
   name Unpremult1
   label "Remove softness for depth values"
   xpos 29
@@ -1201,7 +1201,7 @@ set Na045690 [stack 0]
   xpos 63
   ypos -3252
  }
-push $Na045690
+push $Nc165e80
  Copy {
   inputs 2
   from0 depth.Z
@@ -1217,7 +1217,7 @@ push $Na045690
   xpos -119
   ypos 4001
  }
-set Na06a880 [stack 0]
+set Nc18b0b0 [stack 0]
  Dot {
   name Dot28
   xpos 50
@@ -1237,9 +1237,9 @@ set Na06a880 [stack 0]
   xpos 50
   ypos 4673
  }
-push $N9f17710
-push $N9f21540
-push $Na06a880
+push $Nc038830
+push $Nc042660
+push $Nc18b0b0
  ZDefocus2 {
   inputs 2+1
   useGPUIfAvailable {{MagicDefocus_knobs.gpu}}
@@ -1274,33 +1274,20 @@ push $Na06a880
   disable {{non_uniform_calculations.enable_processing}}
  }
  Unpremult {
-  channels {rgba.red rgba.green rgba.blue nondeform_alpha.red}
+  channels rgba
+  alpha nondeform_alpha.alpha
   name Unpremult2
   xpos -153
   ypos 4803
   disable {{non_uniform_calculations.enable_processing x2 1}}
  }
- Shuffle {
-  in nondeform_alpha
-  in2 rgba
-  red red2
-  green green2
-  blue blue2
-  alpha red
-  black red
-  white green
-  green2 red
-  name Shuffle3
-  label "Reverts alpha back into channel"
-  xpos -153
-  ypos 4850
-  disable {{non_uniform_calculations.enable_processing}}
- }
  Remove {
   channels nondeform_alpha
+  channels2 bokeh_ring
+  channels3 bokeh_alpha
   name Remove3
   xpos -153
-  ypos 4929
+  ypos 4887
   disable {{non_uniform_calculations.enable_processing}}
  }
  Dot {
@@ -1308,7 +1295,7 @@ push $Na06a880
   xpos -119
   ypos 4990
  }
-set Na0d6240 [stack 0]
+set Nc1e60b0 [stack 0]
  Dot {
   name Dot25
   xpos 125
@@ -1331,7 +1318,7 @@ set Na0d6240 [stack 0]
   xpos 125
   ypos 5349
  }
-set Na0f73e0 [stack 0]
+set Nc207340 [stack 0]
  Dot {
   name Dot13
   xpos 326
@@ -1356,7 +1343,7 @@ set Na0f73e0 [stack 0]
   xpos 326
   ypos 5555
  }
-push $Na0f73e0
+push $Nc207340
  Merge2 {
   inputs 2
   operation under
@@ -1375,7 +1362,7 @@ push $Na0f73e0
   xpos 125
   ypos 5734
  }
-push $Na0d6240
+push $Nc1e60b0
  Merge2 {
   inputs 2
   name Merge2
@@ -1413,7 +1400,7 @@ push $Na0d6240
   ypos 5963
   disable {{!MagicDefocus_knobs_py.gamma_correction}}
  }
-push $N9fa9700
+push $Nc0ca770
  Dot {
   name Dot42
   xpos 1830
@@ -1465,7 +1452,7 @@ push $N9fa9700
   xpos -153
   ypos 6954
  }
-push $N9aac3e0
+push $Naf87c10
  Dot {
   name Dot11
   xpos -2666
@@ -1482,13 +1469,13 @@ push $N9aac3e0
   addUserKnob {3 width_res}
   width_res {{((width*width))/262144}}
  }
-push $N9aa7660
+push $Naf82e90
  Dot {
   name Dot23
   xpos -2679
   ypos -4166
  }
-set Na1f0fc0 [stack 0]
+set Nc2d52f0 [stack 0]
  NoOp {
   name bokeh_knobs
   xpos -2713
@@ -1527,7 +1514,7 @@ set Na1f0fc0 [stack 0]
   addUserKnob {7 aspect_ratio l "aspect ratio" R 0.5 3}
   aspect_ratio 1
  }
-push $Na1f0fc0
+push $Nc2d52f0
  Dot {
   name Dot39
   xpos -2564
@@ -1541,7 +1528,7 @@ push $Na1f0fc0
   addUserKnob {20 bokeh_knobs l "Bokeh creation"}
   addUserKnob {68 filter_type l "filter type" M {disc bladed image ""}}
  }
-push $N9ff5fc0
+push $Nc116fa0
  Dot {
   name Dot33
   xpos -15
@@ -1564,67 +1551,19 @@ push $N9ff5fc0
   addUserKnob {7 depthValue}
   depthValue {{"\[if \{\[value enableFocalPoint]\} \{return \[sample this z focalPointBBoxX focalPointBBoxY] \} else \{return 0\}] "}}
  }
-push $Na01c130
+push $Nc13c950
  Dot {
   name Dot5
   xpos 219
   ypos -3824
  }
-set Na1c7c20 [stack 0]
- NoOp {
-  name non_uniform_calculations
-  label "Controls and calculations of parameters"
-  xpos 185
-  ypos -3724
-  addUserKnob {20 non_uniform l Non-uniform}
-  addUserKnob {3 slices}
-  slices {{"non_uniform_knobs.farm == 1 && \$gui == 0 ? 20 : non_uniform_knobs.quality_nonuniform == 0 ? 5 : non_uniform_knobs.quality_nonuniform == 1 ? 10 : 20"}}
-  addUserKnob {7 percentage t "1 to 100 percent" R 0 100}
-  percentage {{frame%1*100}}
-  addUserKnob {3 enable_processing}
-  enable_processing {{"non_uniform_knobs_py.enable_non_uniform ? non_uniform_knobs_py.catseye || non_uniform_knobs_py.barndoors ? MagicDefocus_knobs_py.render == 2 ? 1 : 0 : 1 : 1"}}
-  addUserKnob {3 width}
-  width {{width}}
-  addUserKnob {3 height -STARTLINE}
-  height {{height}}
-  addUserKnob {3 res_size l "resolution size" -STARTLINE}
-  res_size {{width*height/2073600}}
-  addUserKnob {3 centerx l "center x"}
-  centerx {{this.width/2}}
-  addUserKnob {3 centery l center.y -STARTLINE}
-  centery {{this.height/2}}
-  addUserKnob {3 width_max}
-  width_max {{(width-(width/slices))}}
-  addUserKnob {3 width_size -STARTLINE}
-  width_size {{width/slices}}
-  addUserKnob {3 part}
-  part {{floor(((slices*slices)/100)*percentage)}}
-  addUserKnob {26 ""}
-  addUserKnob {3 crcenterx l "crop center x"}
-  crcenterx {{(Crop1.box.x+Crop1.box.r)/2}}
-  addUserKnob {3 crcentery l "crop center y" -STARTLINE}
-  crcentery {{(Crop1.box.y+Crop1.box.t)/2}}
-  addUserKnob {3 over_center_width l "over center width" t "returns 0 or 1"}
-  over_center_width {{clamp(crcenterx-centerx)}}
-  addUserKnob {3 over_center_height l "over center height" t "returns 0 or 1" -STARTLINE}
-  over_center_height {{clamp(crcentery-centery)}}
-  addUserKnob {7 angle R 0 360}
-  angle {{"degrees(atan2(crcentery - centery, crcenterx - centerx))"}}
-  addUserKnob {3 distance l "distance to center"}
-  distance {{"(hypot((centery-crcentery), (centerx-crcenterx))/sqrt(res_size))/880"}}
-  addUserKnob {3 distance_width l "distance width"}
-  distance_width {{((centerx-crcenterx)/sqrt(res_size))/880}}
-  addUserKnob {3 distance_height l "distance height" -STARTLINE}
-  distance_height {{((centery-crcentery)/sqrt(res_size))/495}}
-  addUserKnob {26 ""}
- }
-push $Na1c7c20
+set Nc2fb030 [stack 0]
  Dot {
   name Dot20
   xpos 430
   ypos -3824
  }
-set Na1cd9a0 [stack 0]
+set Nc2ff820 [stack 0]
  NoOp {
   name non_uniform_knobs
   xpos 396
@@ -1646,7 +1585,7 @@ set Na1cd9a0 [stack 0]
   addUserKnob {7 preserve_edge_amount l amount}
   preserve_edge_amount 0.5
  }
-push $Na1cd9a0
+push $Nc2ff820
  Dot {
   name Dot40
   xpos 542
@@ -1697,5 +1636,53 @@ push $Na1cd9a0
   addUserKnob {7 gamma_correction_amount l amount}
   gamma_correction_amount 0.5
   addUserKnob {6 preserve_bounding_box l "preserve bounding box" +STARTLINE}
+ }
+push $Nc2fb030
+ NoOp {
+  name non_uniform_calculations
+  label "Controls and calculations of parameters"
+  xpos 185
+  ypos -3724
+  addUserKnob {20 non_uniform l Non-uniform}
+  addUserKnob {3 slices}
+  slices {{"non_uniform_knobs.farm == 1 && \$gui == 0 ? 20 : non_uniform_knobs.quality_nonuniform == 0 ? 5 : non_uniform_knobs.quality_nonuniform == 1 ? 10 : 20"}}
+  addUserKnob {7 percentage t "1 to 100 percent" R 0 100}
+  percentage {{frame%1*100}}
+  addUserKnob {3 enable_processing}
+  enable_processing {{"non_uniform_knobs_py.enable_non_uniform ? non_uniform_knobs_py.catseye || non_uniform_knobs_py.barndoors ? MagicDefocus_knobs_py.render == 2 ? 1 : 0 : 1 : 1"}}
+  addUserKnob {3 width}
+  width {{width}}
+  addUserKnob {3 height -STARTLINE}
+  height {{height}}
+  addUserKnob {3 res_size l "resolution size" -STARTLINE}
+  res_size {{width*height/2073600}}
+  addUserKnob {3 centerx l "center x"}
+  centerx {{this.width/2}}
+  addUserKnob {3 centery l center.y -STARTLINE}
+  centery {{this.height/2}}
+  addUserKnob {3 width_max}
+  width_max {{(width-(width/slices))}}
+  addUserKnob {3 width_size -STARTLINE}
+  width_size {{width/slices}}
+  addUserKnob {3 part}
+  part {{floor(((slices*slices)/100)*percentage)}}
+  addUserKnob {26 ""}
+  addUserKnob {3 crcenterx l "crop center x"}
+  crcenterx {{(Crop1.box.x+Crop1.box.r)/2}}
+  addUserKnob {3 crcentery l "crop center y" -STARTLINE}
+  crcentery {{(Crop1.box.y+Crop1.box.t)/2}}
+  addUserKnob {3 over_center_width l "over center width" t "returns 0 or 1"}
+  over_center_width {{clamp(crcenterx-centerx)}}
+  addUserKnob {3 over_center_height l "over center height" t "returns 0 or 1" -STARTLINE}
+  over_center_height {{clamp(crcentery-centery)}}
+  addUserKnob {7 angle R 0 360}
+  angle {{"degrees(atan2(crcentery - centery, crcenterx - centerx))"}}
+  addUserKnob {3 distance l "distance to center"}
+  distance {{"(hypot((centery-crcentery), (centerx-crcenterx))/sqrt(res_size))/880"}}
+  addUserKnob {3 distance_width l "distance width"}
+  distance_width {{((centerx-crcenterx)/sqrt(res_size))/880}}
+  addUserKnob {3 distance_height l "distance height" -STARTLINE}
+  distance_height {{((centery-crcentery)/sqrt(res_size))/495}}
+  addUserKnob {26 ""}
  }
 end_group
