@@ -901,7 +901,7 @@ push $Nbe7f550
   name Transform1
   label "Sets aspect ratio of bokeh"
   xpos -2935
-  ypos 3935
+  ypos 3922
  }
 add_layer {nondeform_alpha nondeform_alpha.red nondeform_alpha.green nondeform_alpha.blue nondeform_alpha.alpha}
  Shuffle {
@@ -943,7 +943,7 @@ set Nc021a30 [stack 0]
  Dot {
   name Dot7
   xpos 595
-  ypos 4188
+  ypos 4340
  }
 set Nc038830 [stack 0]
  Dot {
@@ -954,19 +954,19 @@ set Nc038830 [stack 0]
 push $Nc021a30
  Dot {
   name Dot21
-  xpos -451
+  xpos -851
   ypos 4187
  }
 set Nc042660 [stack 0]
  Dot {
   name Dot47
-  xpos -451
+  xpos -851
   ypos 4231
  }
 set Nc0473c0 [stack 0]
  Dot {
   name Dot48
-  xpos -296
+  xpos -696
   ypos 4231
  }
  Shuffle {
@@ -975,7 +975,7 @@ set Nc0473c0 [stack 0]
   blue white
   alpha white
   name Shuffle8
-  xpos -330
+  xpos -730
   ypos 4302
  }
  Shuffle {
@@ -986,7 +986,7 @@ set Nc0473c0 [stack 0]
   alpha white
   out nondeform_alpha
   name Shuffle9
-  xpos -330
+  xpos -730
   ypos 4328
   disable {{non_uniform_calculations.enable_processing}}
  }
@@ -994,35 +994,35 @@ set Nc0473c0 [stack 0]
   box {0 0 1 1}
   reformat true
   name Crop2
-  xpos -330
+  xpos -730
   ypos 4354
  }
  Transform {
   translate {{ceil(bokeh_resolution2.width/2-.5)} {ceil(bokeh_resolution2.height/2-.5)}}
   center {{width/2 x6 0} {height/2 x6 0}}
   name Transform7
-  xpos -330
+  xpos -730
   ypos 4380
  }
  Grade {
   channels rgba
   white 0.01
   name Grade6
-  xpos -330
+  xpos -730
   ypos 4406
  }
  Dot {
   name Dot79
-  xpos -296
+  xpos -696
   ypos 4487
  }
 push $Nc0473c0
  Transform {
-  scale {{(1/sqrt(bokeh_resolution2.bokeh_res))*((MagicDefocus_knobs.size(floor(frame)))/50)}}
+  scale {{(1/sqrt(bokeh_resolution2.bokeh_res))*((MagicDefocus_knobs.size(floor(frame)))/50)*(1-(image.pixel_aspect-1)/4)}}
   center {{width/2} {height/2}}
   name Transform6
   label "Scale slider for convolve\nmethod. Matches ZDefocus size."
-  xpos -485
+  xpos -885
   ypos 4285
  }
  Merge2 {
@@ -1031,12 +1031,12 @@ push $Nc0473c0
   also_merge nondeform_alpha
   name Merge4
   label "Draws always a pixel for bokeh processing"
-  xpos -485
+  xpos -885
   ypos 4477
  }
  Dot {
   name Dot29
-  xpos -451
+  xpos -851
   ypos 4558
  }
  Input {
@@ -1169,7 +1169,7 @@ set Nc13c950 [stack 0]
  }
  Crop {
   box {{((non_uniform_calculations.width_size*non_uniform_calculations.part)-floor(non_uniform_calculations.percentage/(100/non_uniform_calculations.slices))*(width))-((softness/2)/image.pixel_aspect)} {floor(non_uniform_calculations.percentage/(100/non_uniform_calculations.slices))*((height/non_uniform_calculations.slices))-(floor(non_uniform_calculations.percentage/100)*height)-(softness/2)} {(box.x+non_uniform_calculations.width_size)+(softness/image.pixel_aspect)} {(box.y+(height/non_uniform_calculations.slices))+(softness)}}
-  softness {{ceil((non_uniform_knobs.softness)*non_uniform_calculations.res_size/sqrt(non_uniform_calculations.res_size))}}
+  softness {{ceil((non_uniform_knobs.softness*.8)*non_uniform_calculations.res_size/sqrt(non_uniform_calculations.res_size))}}
   intersect true
   name Crop1
   label "Cuts the image in pieces\nEach piece will be processed\napart with a different bokeh"
@@ -1239,6 +1239,24 @@ set Nc18b0b0 [stack 0]
  }
 push $Nc038830
 push $Nc042660
+ Dot {
+  name Dot38
+  xpos -372
+  ypos 4187
+ }
+ Reformat {
+  type "to box"
+  box_width {{height}}
+  name Reformat7
+  label "Sets pixel aspect\nratio to 1"
+  xpos -406
+  ypos 4251
+ }
+ Dot {
+  name Dot59
+  xpos -372
+  ypos 4340
+ }
 push $Nc18b0b0
  ZDefocus2 {
   inputs 2+1
@@ -1253,7 +1271,7 @@ push $Nc18b0b0
   name ZDefocus1
   label "This is where the depth processing\nhappens"
   xpos -153
-  ypos 4166
+  ypos 4318
  }
  Switch {
   inputs 2
