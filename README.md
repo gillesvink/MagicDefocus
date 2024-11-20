@@ -1,3 +1,10 @@
+## Deprecated
+This project is deprecated as version 2 is released:
+
+[![MagicDefocus2](https://magicdefocus.com/assets/thumbnail.png)](https://magicdefocus.com)
+
+
+
 # MagicDefocus
 (Z)Defocus node with built in bokeh creation tool, catseye bokehs, barndoors and lens breathing. 
 For a detailed explanation visit Nukepedia: http://www.nukepedia.com/gizmos/filter/magicdefocus
